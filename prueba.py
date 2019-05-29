@@ -53,3 +53,13 @@ print("\n\n\nTenemos " + str(len(instancias_malas)) + " instancias con más de u
 dataset2 = np.delete(dataset,instancias_malas,0)
 print("Número de instancias del dataset1: " + str(len(dataset1)))
 print("Número de instancias del dataset nuevo: " + str(len(dataset2)))
+
+# Convertimos los datos a formato numpy
+for i in range(len(dataset2)):
+    nueva_fila = []
+    for v in dataset2[i]:
+        if "na" in v:
+            nueva_fila.append(np.nan)
+        else:
+            nueva_fila.append(float(v))
+    dataset2[i]=nueva_fila
