@@ -2,6 +2,7 @@
 
 import csv
 import numpy as np
+from sklearn.inpute import SimpleImputer
 
 print("Leyendo el fichero...\n\n\n")
 f = open('./dataset/aps_failure_training_set.csv', 'r')
@@ -63,3 +64,12 @@ for i in range(len(dataset2)):
         else:
             nueva_fila.append(float(v))
     dataset2[i]=nueva_fila
+
+# Vamos a hacer tres tipos de imputación de valores
+dataset_media = []
+imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+dataset_media = imp.fit_transform(dataset2)
+
+dataset_mediana = []
+imp = SimpleImputer(missing_values=np.nan, strategy='median')
+dataset_mediana = imp.fit_transform(dataset2)
