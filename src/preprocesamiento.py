@@ -56,7 +56,7 @@ for i in range(len(dataset1)):
 
 print("\n\n\nTenemos " + str(len(instancias_malas)) + " instancias negativas con más de un 15% de NAs")
 
-dataset2 = np.delete(dataset,instancias_malas,0)
+dataset2 = np.delete(dataset1,instancias_malas,0)
 del dataset
 print("Número de instancias del dataset1: " + str(len(dataset1)))
 print("Número de instancias del dataset nuevo: " + str(len(dataset2)))
