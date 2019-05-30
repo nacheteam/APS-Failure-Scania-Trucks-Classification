@@ -2,7 +2,12 @@
 
 import csv
 import numpy as np
+import matplotlib.pyplot as plt
+
 from sklearn.impute import SimpleImputer
+from sklearn.manifold import TSNE
+
+np.random.seed(123456789)
 
 print("Leyendo el fichero...\n\n\n")
 f = open('./dataset/aps_failure_training_set.csv', 'r')
@@ -49,12 +54,15 @@ for i in range(len(dataset1)):
     if num_nas/len(dataset1[i])>0.15 and dataset[i][0]=="neg":
         instancias_malas.append(i)
 
-print("\n\n\nTenemos " + str(len(instancias_malas)) + " instancias con más de un 15% de NAs")
+print("\n\n\nTenemos " + str(len(instancias_malas)) + " instancias negativas con más de un 15% de NAs")
 
 dataset2 = np.delete(dataset,instancias_malas,0)
+del dataset
 print("Número de instancias del dataset1: " + str(len(dataset1)))
 print("Número de instancias del dataset nuevo: " + str(len(dataset2)))
+del dataset1
 
+print("Convertimos el dataset a numérico con formato numpy")
 # Convertimos los datos a formato numpy
 for i in range(len(dataset2)):
     nueva_fila = []
@@ -70,11 +78,38 @@ for i in range(len(dataset2)):
             nueva_fila.append(float(v))
     dataset2[i]=nueva_fila
 
-# Vamos a hacer tres tipos de imputación de valores
+# Vamos a hacer dos tipos de imputación de valores
+print("Hacemos imputación de valores con la media")
 dataset_media = []
 imp = SimpleImputer(missing_values=np.nan, strategy='mean')
 dataset_media = imp.fit_transform(dataset2)
 
+print("Hacemos imputación de valores con la mediana")
 dataset_mediana = []
 imp = SimpleImputer(missing_values=np.nan, strategy='median')
 dataset_mediana = imp.fit_transform(dataset2)
+
+print("Visualizamos en primer lugar el dataset obtenido con la media")
+labels = dataset_media[:,0]
+
+# Pinto el dataset de la media en dos dimensiones
+'''
+dataset_media_reduced = TSNE(n_components=2).fit_transform(dataset_media)
+neg = np.array([dataset_media_reduced[i] for i in range(len(dataset_media_reduced)) if labels[i]==0])
+pos = np.array([dataset_media_reduced[i] for i in range(len(dataset_media_reduced)) if labels[i]==1])
+plt.scatter(neg[:,0], neg[:,1], c="green", label="Negativo")
+plt.scatter(pos[:,0], pos[:,1], c="red", label="Positivo")
+plt.legend()
+plt.title("Conjunto de datos imputados con la media")
+plt.show()
+'''
+
+# Pinto el dataset de la mediana en dos dimensiones
+dataset_mediana_reduced = TSNE(n_components=2).fit_transform(dataset_mediana)
+neg = np.array([dataset_mediana_reduced[i] for i in range(len(dataset_mediana_reduced)) if labels[i]==0])
+pos = np.array([dataset_mediana_reduced[i] for i in range(len(dataset_mediana_reduced)) if labels[i]==1])
+plt.scatter(neg[:,0], neg[:,1], c="green", label="Negativo")
+plt.scatter(pos[:,0], pos[:,1], c="red", label="Positivo")
+plt.legend()
+plt.title("Conjunto de datos imputados con la mediana")
+plt.show()
