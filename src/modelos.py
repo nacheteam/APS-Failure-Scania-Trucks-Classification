@@ -135,3 +135,13 @@ def obtenerDatosTest():
                 nueva_fila.append(float(v))
         dataset[i]=nueva_fila
     return dataset[:,1:], dataset[:,0]
+
+print("Leyendo los conjuntos de datos")
+dataset_train, labels_train = obtenerDatosTrain(imputacion="mediana")
+dataset_test, labels_test = obtenerDatosTest()
+clasificador_svm = svm.SVC(gamma="auto")
+print("Ajustando SVM")
+clasificador_svm.fit(dataset_train,labels_train)
+print("Obteniendo el score")
+score = clasificador_svm.score(dataset_test, labels_test)
+print("El score de SVM es: " + str(score))
