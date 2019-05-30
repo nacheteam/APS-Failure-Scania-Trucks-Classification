@@ -2,7 +2,8 @@
 
 import csv
 import numpy as np
-from sklearn.inpute import SimpleImputer
+from sklearn.impute import SimpleImputer
+from fancyimpute import KNN
 
 print("Leyendo el fichero...\n\n\n")
 f = open('./dataset/aps_failure_training_set.csv', 'r')
@@ -61,6 +62,11 @@ for i in range(len(dataset2)):
     for v in dataset2[i]:
         if "na" in v:
             nueva_fila.append(np.nan)
+        #CONVIERTO LAS ETIQUETAS A NÚMEROS
+        elif 'neg' in v:
+            nueva_fila.append(0)
+        elif 'pos' in v:
+            nueva_fila.append(1)
         else:
             nueva_fila.append(float(v))
     dataset2[i]=nueva_fila
@@ -73,3 +79,5 @@ dataset_media = imp.fit_transform(dataset2)
 dataset_mediana = []
 imp = SimpleImputer(missing_values=np.nan, strategy='median')
 dataset_mediana = imp.fit_transform(dataset2)
+
+dataset_knn = KNN(k=3).fit_transform(dataset2)
