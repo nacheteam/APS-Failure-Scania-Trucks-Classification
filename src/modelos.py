@@ -136,7 +136,6 @@ def obtenerDatosTest(imputacion):
             else:
                 nueva_fila.append(float(v))
         dataset[i]=nueva_fila
-    return dataset[:,1:], dataset[:,0]
 
     # Se aplica la imputación de valores según la media
     if imputacion=="media":
