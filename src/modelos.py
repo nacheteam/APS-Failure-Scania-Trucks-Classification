@@ -99,9 +99,11 @@ def obtenerDatosTrain(imputacion):
         print("No se ha elegido un método de imputación, devolvemos el dataset bruto.")
         return dataset2[:,1:], dataset2[:,0]
 
-def obtenerDatosTest():
+def obtenerDatosTest(imputacion):
     '''
     @brief Función que lee los datos de test
+    @param imputacion Cadena de texto que puede ser <media> o <mediana>
+    para indicar la estrategia de imputación de valores perdidos a usar
     @return Devuelve dos numpy arrays, el primero el conjunto de datos y el segundo
     las etiquetas del mismo.
     '''
@@ -136,9 +138,26 @@ def obtenerDatosTest():
         dataset[i]=nueva_fila
     return dataset[:,1:], dataset[:,0]
 
+    # Se aplica la imputación de valores según la media
+    if imputacion=="media":
+        dataset_media = []
+        imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+        dataset_media = imp.fit_transform(dataset)
+        return dataset_media[:,1:], dataset_media[:,0]
+    # Se aplica la imputación de valores según la mediana
+    elif imputacion=="mediana":
+        dataset_mediana = []
+        imp = SimpleImputer(missing_values=np.nan, strategy='median')
+        dataset_mediana = imp.fit_transform(dataset)
+        return dataset_mediana[:,1:], dataset_mediana[:,0]
+    # No se aplica imputación de valores y se devuelve el conjunto de datos con NA's
+    else:
+        print("No se ha elegido un método de imputación, devolvemos el dataset bruto.")
+        return dataset[:,1:], dataset[:,0]
+
 print("Leyendo los conjuntos de datos")
 dataset_train, labels_train = obtenerDatosTrain(imputacion="mediana")
-dataset_test, labels_test = obtenerDatosTest()
+dataset_test, labels_test = obtenerDatosTest(imputacion="mediana")
 clasificador_svm = svm.SVC(gamma="auto")
 print("Ajustando SVM")
 clasificador_svm.fit(dataset_train,labels_train)
