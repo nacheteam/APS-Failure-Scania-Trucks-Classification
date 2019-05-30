@@ -10,7 +10,7 @@ from sklearn.manifold import TSNE
 np.random.seed(123456789)
 
 print("Leyendo el fichero...\n\n\n")
-f = open('./dataset/aps_failure_training_set.csv', 'r')
+f = open('../dataset/aps_failure_training_set.csv', 'r')
 dataset = []
 with f as csvfile:
     file = csv.reader(csvfile, delimiter=',', quotechar='|')
