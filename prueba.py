@@ -3,7 +3,6 @@
 import csv
 import numpy as np
 from sklearn.impute import SimpleImputer
-from fancyimpute import KNN
 
 print("Leyendo el fichero...\n\n\n")
 f = open('./dataset/aps_failure_training_set.csv', 'r')
@@ -79,5 +78,3 @@ dataset_media = imp.fit_transform(dataset2)
 dataset_mediana = []
 imp = SimpleImputer(missing_values=np.nan, strategy='median')
 dataset_mediana = imp.fit_transform(dataset2)
-
-dataset_knn = KNN(k=3).fit_transform(dataset2)
