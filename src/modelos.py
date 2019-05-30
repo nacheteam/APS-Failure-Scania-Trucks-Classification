@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer
 
+# Modelos
+from sklearn import svm
+
 np.random.seed(123456789)
 
 def obtenerDatosTrain(imputacion):
@@ -15,7 +18,7 @@ def obtenerDatosTrain(imputacion):
     segundo las etiquetas.
     '''
     # Abrimos el fichero
-    f = open('./dataset/aps_failure_training_set.csv', 'r')
+    f = open('../dataset/aps_failure_training_set.csv', 'r')
     dataset = []
     # Lo leemos como un fichero csv
     with f as csvfile:
@@ -95,3 +98,40 @@ def obtenerDatosTrain(imputacion):
     else:
         print("No se ha elegido un método de imputación, devolvemos el dataset bruto.")
         return dataset2[:,1:], dataset2[:,0]
+
+def obtenerDatosTest():
+    '''
+    @brief Función que lee los datos de test
+    @return Devuelve dos numpy arrays, el primero el conjunto de datos y el segundo
+    las etiquetas del mismo.
+    '''
+    # Abrimos el fichero
+    f = open('../dataset/aps_failure_test_set.csv', 'r')
+    dataset = []
+    # Lo leemos como un fichero csv
+    with f as csvfile:
+        file = csv.reader(csvfile, delimiter=',', quotechar='|')
+        i=0
+        for line in file:
+            # Sabemos que el contenido está a partir de la línea 21
+            if i>=21:
+                dataset.append(line)
+            i+=1
+    # Lo convertimos en numpy array
+    dataset = np.array(dataset)
+
+    # Convertimos los datos a formato numpy
+    for i in range(len(dataset)):
+        nueva_fila = []
+        for v in dataset[i]:
+            if "na" in v:
+                nueva_fila.append(np.nan)
+            #CONVIERTO LAS ETIQUETAS A NÚMEROS
+            elif 'neg' in v:
+                nueva_fila.append(0)
+            elif 'pos' in v:
+                nueva_fila.append(1)
+            else:
+                nueva_fila.append(float(v))
+        dataset[i]=nueva_fila
+    return dataset[:,1:], dataset[:,0]
