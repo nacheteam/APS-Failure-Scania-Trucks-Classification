@@ -2,7 +2,8 @@
 
 import csv
 import numpy as np
-from sklearn.inpute import SimpleImputer
+from sklearn.impute import SimpleImputer
+from fancyimpute import KNN
 
 print("Leyendo el fichero...\n\n\n")
 f = open('./dataset/aps_failure_training_set.csv', 'r')
@@ -14,7 +15,7 @@ with f as csvfile:
         if i>=21:
             dataset.append(line)
         i+=1
-       
+
 print("Comprobamos las características que tienen más de un 70% de NAs...")
 dataset = np.array(dataset)
 deberiamos_quitarla =[False]*len(dataset[0])
@@ -27,7 +28,7 @@ for d in dataset:
 for i in range(len(numeros_na)):
     if (numeros_na[i]/len(dataset))>0.7:
         deberiamos_quitarla[i]=True
-        
+
 
 indices =[]
 for deberiamos,index in zip(deberiamos_quitarla,range(len(deberiamos_quitarla))):
@@ -35,7 +36,7 @@ for deberiamos,index in zip(deberiamos_quitarla,range(len(deberiamos_quitarla)))
         indices.append(index)
         print("Debemos quitar la característica " + str(index))
 print("")
-        
+
 dataset1 = np.delete(dataset,indices,1)
 print("Número de características original: " + str(len(dataset[0])))
 print("Número de características nuevo: " + str(len(dataset1[0])))
@@ -48,7 +49,7 @@ for i in range(len(dataset1)):
             num_nas+=1
     if num_nas/len(dataset1[i])>0.15 and dataset[i][0]=="neg":
         instancias_malas.append(i)
-        
+
 print("\n\n\nTenemos " + str(len(instancias_malas)) + " instancias con más de un 15% de NAs")
 
 dataset2 = np.delete(dataset,instancias_malas,0)
@@ -61,6 +62,11 @@ for i in range(len(dataset2)):
     for v in dataset2[i]:
         if "na" in v:
             nueva_fila.append(np.nan)
+        #CONVIERTO LAS ETIQUETAS A NÚMEROS
+        elif 'neg' in v:
+            nueva_fila.append(0)
+        elif 'pos' in v:
+            nueva_fila.append(1)
         else:
             nueva_fila.append(float(v))
     dataset2[i]=nueva_fila
@@ -73,3 +79,5 @@ dataset_media = imp.fit_transform(dataset2)
 dataset_mediana = []
 imp = SimpleImputer(missing_values=np.nan, strategy='median')
 dataset_mediana = imp.fit_transform(dataset2)
+
+dataset_knn = KNN(k=3).fit_transform(dataset2)
