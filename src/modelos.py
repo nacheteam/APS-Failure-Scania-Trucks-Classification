@@ -2,7 +2,8 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer
-
+from sklearn.externals import joblib
+from sklearn import metrics
 # Modelos
 from sklearn import svm
 
@@ -183,6 +184,12 @@ dataset_test, labels_test = obtenerDatosTest(imputacion="mediana")
 clasificador_svm = svm.SVC(gamma="auto", verbose=True)
 print("Ajustando SVM")
 clasificador_svm.fit(dataset_train,labels_train)
+print("Guardamos la SVM en un fichero (svm.txt)")
+joblib.dump(clasificador_svm,"svm.txt")
 print("Obteniendo el score")
+pred = clasificador_svm.predict(dataset_test)
 score = clasificador_svm.score(dataset_test, labels_test)
 print("El score de SVM es: " + str(score))
+print("Precision: " + str(metrics.precision_score(labels_test,pred)))
+print("Recall: " + str(metrics.recall_score(labels_test,pred)))
+print("F1 Score: " + str(metrics.f1_score(labels_test,pred,average="binary")))
