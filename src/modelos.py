@@ -122,10 +122,33 @@ def obtenerDatosTest(imputacion):
     # Lo convertimos en numpy array
     dataset = np.array(dataset)
 
+    deberiamos_quitarla =[False]*len(dataset[0])
+    numeros_na = [0]*len(dataset[0])
+    # Estudiamos el número de NA's por característica
+    for d in dataset:
+        for i in range(len(d)):
+            if "na" in d[i]:
+                numeros_na[i]+=1
+
+    # Si tiene más de un 70% de NA's entonces la marcamos para quitarla
+    for i in range(len(numeros_na)):
+        if (numeros_na[i]/len(dataset))>0.7:
+            deberiamos_quitarla[i]=True
+
+
+    indices =[]
+    # Calculamos los índices a quitar
+    for deberiamos,index in zip(deberiamos_quitarla,range(len(deberiamos_quitarla))):
+        if deberiamos:
+            indices.append(index)
+
+    # Eliminamos los índices de las características deficientes (en cuanto a número de NA's)
+    dataset1 = np.delete(dataset,indices,1)
+
     # Convertimos los datos a formato numpy
-    for i in range(len(dataset)):
+    for i in range(len(dataset1)):
         nueva_fila = []
-        for v in dataset[i]:
+        for v in dataset1[i]:
             if "na" in v:
                 nueva_fila.append(np.nan)
             #CONVIERTO LAS ETIQUETAS A NÚMEROS
@@ -135,29 +158,29 @@ def obtenerDatosTest(imputacion):
                 nueva_fila.append(1)
             else:
                 nueva_fila.append(float(v))
-        dataset[i]=nueva_fila
+        dataset1[i]=nueva_fila
 
     # Se aplica la imputación de valores según la media
     if imputacion=="media":
         dataset_media = []
         imp = SimpleImputer(missing_values=np.nan, strategy='mean')
-        dataset_media = imp.fit_transform(dataset)
+        dataset_media = imp.fit_transform(dataset1)
         return dataset_media[:,1:], dataset_media[:,0]
     # Se aplica la imputación de valores según la mediana
     elif imputacion=="mediana":
         dataset_mediana = []
         imp = SimpleImputer(missing_values=np.nan, strategy='median')
-        dataset_mediana = imp.fit_transform(dataset)
+        dataset_mediana = imp.fit_transform(dataset1)
         return dataset_mediana[:,1:], dataset_mediana[:,0]
     # No se aplica imputación de valores y se devuelve el conjunto de datos con NA's
     else:
         print("No se ha elegido un método de imputación, devolvemos el dataset bruto.")
-        return dataset[:,1:], dataset[:,0]
+        return dataset1[:,1:], dataset1[:,0]
 
 print("Leyendo los conjuntos de datos")
 dataset_train, labels_train = obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = obtenerDatosTest(imputacion="mediana")
-clasificador_svm = svm.SVC(gamma="auto")
+clasificador_svm = svm.SVC(gamma="auto", verbose=True)
 print("Ajustando SVM")
 clasificador_svm.fit(dataset_train,labels_train)
 print("Obteniendo el score")
