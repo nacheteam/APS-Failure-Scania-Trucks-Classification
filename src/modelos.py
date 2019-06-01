@@ -178,19 +178,26 @@ def obtenerDatosTest(imputacion):
         print("No se ha elegido un método de imputación, devolvemos el dataset bruto.")
         return dataset1[:,1:], dataset1[:,0]
 
-print("Leyendo los conjuntos de datos")
+def ajustaSVM(dataset_train,labels_train, save=False, ficherosvm=None):
+    if ficherosvm==None:
+        clasificador_svm = svm.SVC(gamma="auto", verbose=True)
+        clasificador_svm.fit(dataset_train,labels_train)
+        if save:
+            joblib.dump(clasificador_svm,ficherosvm)
+        return clasificador_svm
+    else:
+        clasificador_svm = joblib.load("svm.txt")
+        return clasificador_svm
+
+def obtenScores(clasificador, dataset_test, labels_test):
+    pred = clasificador.predict(dataset_test)
+    score = clasificador.score(dataset_test, labels_test)
+    print("El score es: " + str(score))
+    print("Precision: " + str(metrics.precision_score(labels_test,pred,average='weighted')))
+    print("Recall: " + str(metrics.recall_score(labels_test,pred,average='weighted')))
+    print("F1 Score: " + str(metrics.f1_score(labels_test,pred,average="weighted")))
+
 dataset_train, labels_train = obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = obtenerDatosTest(imputacion="mediana")
-clasificador_svm = svm.SVC(gamma="auto", verbose=True)
-print("Ajustando SVM")
-#clasificador_svm.fit(dataset_train,labels_train)
-clasificador_svm = joblib.load("svm.txt")
-print("Guardamos la SVM en un fichero (svm.txt)")
-#joblib.dump(clasificador_svm,"svm.txt")
-print("Obteniendo el score")
-pred = clasificador_svm.predict(dataset_test)
-score = clasificador_svm.score(dataset_test, labels_test)
-print("El score de SVM es: " + str(score))
-print("Precision: " + str(metrics.precision_score(labels_test,pred,average='weighted')))
-print("Recall: " + str(metrics.recall_score(labels_test,pred,average='weighted')))
-print("F1 Score: " + str(metrics.f1_score(labels_test,pred,average="weighted")))
+clasificador_svm = ajustaSVM(dataset_train, labels_train, save=False, ficherosvm=None)
+obtenScores(clasificador_svm,dataset_test, labels_test)
