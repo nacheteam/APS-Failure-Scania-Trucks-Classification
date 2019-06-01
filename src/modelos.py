@@ -198,7 +198,9 @@ def obtenScores(clasificador, dataset_test, labels_test):
     print("Recall: " + str(metrics.recall_score(labels_test,pred,average='weighted')))
     print("F1 Score: " + str(metrics.f1_score(labels_test,pred,average="weighted")))
 
+print("Leyendo los datasets")
 dataset_train, labels_train = obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = obtenerDatosTest(imputacion="mediana")
-clasificador_svm = ajustaSVM(dataset_train, labels_train, save=False, ficherosvm="svm.txt")
+print("Ajustando SVM")
+clasificador_svm = ajustaSVM(dataset_train, labels_train, save=True, ficherosvm="svm_media.txt")
 obtenScores(clasificador_svm,dataset_test, labels_test)
