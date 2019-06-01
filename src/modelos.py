@@ -200,5 +200,5 @@ def obtenScores(clasificador, dataset_test, labels_test):
 
 dataset_train, labels_train = obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = obtenerDatosTest(imputacion="mediana")
-clasificador_svm = ajustaSVM(dataset_train, labels_train, save=False, ficherosvm=None)
+clasificador_svm = ajustaSVM(dataset_train, labels_train, save=False, ficherosvm="svm.txt")
 obtenScores(clasificador_svm,dataset_test, labels_test)
