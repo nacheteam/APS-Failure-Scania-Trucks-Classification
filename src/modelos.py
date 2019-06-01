@@ -6,6 +6,7 @@ from sklearn.externals import joblib
 from sklearn import metrics
 # Modelos
 from sklearn import svm
+from sklearn.ensemble import AdaBoostClassifier
 
 np.random.seed(123456789)
 
@@ -186,7 +187,7 @@ def ajustaSVM(dataset_train,labels_train, save=False, ficherosvm=None):
             joblib.dump(clasificador_svm,ficherosvm)
         return clasificador_svm
     else:
-        clasificador_svm = joblib.load("svm.txt")
+        clasificador_svm = joblib.load(ficherosvm)
         return clasificador_svm
 
 def obtenScores(clasificador, dataset_test, labels_test):
