@@ -11,6 +11,7 @@ from sklearn import svm
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn import linear_model
+from sklearn.ensemble import RandomForestClassifier
 
 np.random.seed(123456789)
 
@@ -95,22 +96,28 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
 
 dataset_train, labels_train = preprocesamiento.obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = preprocesamiento.obtenerDatosTest(imputacion="mediana")
-print("########################################################################\n\n")
 
+# SVM lineal
 '''
 clf = svm.LinearSVC(random_state=123456789, tol=1e-5, verbose=True)
 clf.fit(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, nombre="LinearSVM")
 '''
 
-
+# Gradiente descendente estocástico
+'''
 clf = linear_model.SGDClassifier(max_iter=10000, tol=1e-6, verbose=True)
 clf.fit(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test)
+'''
 
-
+# SVM
 '''
 print("Ajustando SVM")
 clasificador_svm = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana.txt")
 obtenScores(clasificador_svm,dataset_test, labels_test)
 '''
+
+clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=123456789, verbose=True)
+clf.fit(dataset_train, labels_train)
+obtenScores(dataset_test,labels_test)
