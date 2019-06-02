@@ -120,4 +120,4 @@ obtenScores(clasificador_svm,dataset_test, labels_test)
 
 clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=123456789, verbose=True)
 clf.fit(dataset_train, labels_train)
-obtenScores(dataset_test,labels_test)
+obtenScores(clf,dataset_test,labels_test)
