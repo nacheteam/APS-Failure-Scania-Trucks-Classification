@@ -60,6 +60,8 @@ dataset2 = np.delete(dataset1,instancias_malas,0)
 del dataset
 print("Número de instancias del dataset1: " + str(len(dataset1)))
 print("Número de instancias del dataset nuevo: " + str(len(dataset2)))
+print("Número de instancias negativas: " + str(len([d for d in dataset2 if d[0]=="neg"])))
+print("Número de instancias positivas: " + str(len([d for d in dataset2 if d[0]=="pos"])))
 del dataset1
 
 print("Convertimos el dataset a numérico con formato numpy")
