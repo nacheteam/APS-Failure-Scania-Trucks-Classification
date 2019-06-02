@@ -3,14 +3,16 @@
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
-
+from imblearn.over_sampling import SMOTE
 from sklearn.impute import SimpleImputer
 from sklearn.manifold import TSNE
 
 np.random.seed(123456789)
+DEBUG = False # Indica si se hacen o no prints
 
 def leeFichero(fichero="../dataset/aps_failure_training_set.csv"):
-    print("Leyendo el fichero...\n\n\n")
+    if DEBUG:
+        print("Leyendo el fichero...\n\n\n")
     f = open('../dataset/aps_failure_training_set.csv', 'r')
     dataset = []
     with f as csvfile:
@@ -23,7 +25,8 @@ def leeFichero(fichero="../dataset/aps_failure_training_set.csv"):
     return dataset
 
 def eliminaCaracteristicasMalas(dataset):
-    print("Comprobamos las características que tienen más de un 70% de NAs...")
+    if DEBUG:
+        print("Comprobamos las características que tienen más de un 70% de NAs...")
     dataset = np.array(dataset)
     deberiamos_quitarla =[False]*len(dataset[0])
     numeros_na = [0]*len(dataset[0])
@@ -41,12 +44,15 @@ def eliminaCaracteristicasMalas(dataset):
     for deberiamos,index in zip(deberiamos_quitarla,range(len(deberiamos_quitarla))):
         if deberiamos:
             indices.append(index)
-            print("Debemos quitar la característica " + str(index))
-    print("")
+            if DEBUG:
+                print("Debemos quitar la característica " + str(index))
+    if DEBUG:
+        print("")
 
     dataset1 = np.delete(dataset,indices,1)
-    print("Número de características original: " + str(len(dataset[0])))
-    print("Número de características nuevo: " + str(len(dataset1[0])))
+    if DEBUG:
+        print("Número de características original: " + str(len(dataset[0])))
+        print("Número de características nuevo: " + str(len(dataset1[0])))
     return dataset1
 
 def eliminaInstanciasMalas(dataset1):
@@ -59,17 +65,20 @@ def eliminaInstanciasMalas(dataset1):
         if num_nas/len(dataset1[i])>0.15 and dataset1[i][0]=="neg":
             instancias_malas.append(i)
 
-    print("\n\n\nTenemos " + str(len(instancias_malas)) + " instancias negativas con más de un 15% de NAs")
+    if DEBUG:
+        print("\n\n\nTenemos " + str(len(instancias_malas)) + " instancias negativas con más de un 15% de NAs")
 
     dataset2 = np.delete(dataset1,instancias_malas,0)
-    print("Número de instancias del dataset1: " + str(len(dataset1)))
-    print("Número de instancias del dataset nuevo: " + str(len(dataset2)))
-    print("Número de instancias negativas: " + str(len([d for d in dataset2 if d[0]=="neg"])))
-    print("Número de instancias positivas: " + str(len([d for d in dataset2 if d[0]=="pos"])))
+    if DEBUG:
+        print("Número de instancias del dataset1: " + str(len(dataset1)))
+        print("Número de instancias del dataset nuevo: " + str(len(dataset2)))
+        print("Número de instancias negativas: " + str(len([d for d in dataset2 if d[0]=="neg"])))
+        print("Número de instancias positivas: " + str(len([d for d in dataset2 if d[0]=="pos"])))
     return dataset2
 
 def convierteNumpy(dataset2):
-    print("Convertimos el dataset a numérico con formato numpy")
+    if DEBUG:
+        print("Convertimos el dataset a numérico con formato numpy")
     # Convertimos los datos a formato numpy
     for i in range(len(dataset2)):
         nueva_fila = []
@@ -90,17 +99,27 @@ def imputaDatos(dataset2, imputacion="mediana"):
     # Vamos a hacer dos tipos de imputación de valores
     dataset_imputado=[]
     if imputacion=="media":
-        print("Hacemos imputación de valores con la media")
+        if DEBUG:
+            print("Hacemos imputación de valores con la media")
         imp = SimpleImputer(missing_values=np.nan, strategy='mean')
         dataset_imputado = imp.fit_transform(dataset2)
     elif imputacion=="mediana":
-        print("Hacemos imputación de valores con la mediana")
+        if DEBUG:
+            print("Hacemos imputación de valores con la mediana")
         imp = SimpleImputer(missing_values=np.nan, strategy='median')
         dataset_imputado = imp.fit_transform(dataset2)
     else:
-        print("Ese no es un método de imputacion")
+        if DEBUG:
+            print("Ese no es un método de imputacion")
         dataset_imputado=dataset2
     return dataset_imputado
+
+def balanceaDataset(dataset):
+    if DEBUG:
+        print("Balanceando el dataset")
+    sm = SMOTE(sampling_strategy=0.4,random_state = 123456789)
+    X_res, y_res = sm.fit_resample(dataset[:,1:],dataset[:,0])
+    return X_res, y_res
 
 def visualizaDatos(dataset,labels):
     # Pinto el dataset de la mediana en dos dimensiones
@@ -119,8 +138,7 @@ def obtenerDatosTrain(fichero="../dataset/aps_failure_training_set.csv", imputac
     dataset2 = eliminaInstanciasMalas(dataset1)
     dataset3 = convierteNumpy(dataset2)
     dataset4 = imputaDatos(dataset3, imputacion=imputacion)
-    labels = dataset4[:,0]
-    dataset = dataset4[:,1:]
+    dataset, labels = balanceaDataset(dataset4)
     return dataset,labels
 
 def obtenerDatosTest(fichero="../dataset/aps_failure_test_set.csv", imputacion="mediana"):

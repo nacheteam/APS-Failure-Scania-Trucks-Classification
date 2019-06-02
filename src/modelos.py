@@ -93,7 +93,6 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
     plot_confusion_matrix(labels_test, pred, classes=nombres,normalize = False,title='Matriz de confusión para ' + nombre)
     plt.show()
 
-print("Leyendo los datasets")
 dataset_train, labels_train = preprocesamiento.obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = preprocesamiento.obtenerDatosTest(imputacion="mediana")
 print("########################################################################\n\n")
