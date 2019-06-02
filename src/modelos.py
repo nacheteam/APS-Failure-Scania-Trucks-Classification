@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer
 from sklearn.externals import joblib
 from sklearn import metrics
+from imblearn.over_sampling import SMOTE
 # Modelos
 from sklearn import svm
 from sklearn.ensemble import AdaBoostClassifier
@@ -134,25 +135,28 @@ def obtenerDatosTrain(imputacion):
                 nueva_fila.append(np.nan)
             #CONVIERTO LAS ETIQUETAS A NÚMEROS
             elif 'neg' in v:
-                nueva_fila.append(0)
+                nueva_fila.append(-1)
             elif 'pos' in v:
                 nueva_fila.append(1)
             else:
                 nueva_fila.append(float(v))
         dataset2[i]=nueva_fila
 
+    sm = SMOTE(sampling_strategy=0.4,random_state = 123456789)
     # Se aplica la imputación de valores según la media
     if imputacion=="media":
         dataset_media = []
         imp = SimpleImputer(missing_values=np.nan, strategy='mean')
         dataset_media = imp.fit_transform(dataset2)
-        return dataset_media[:,1:], dataset_media[:,0]
+        X_res, y_res = sm.fit_resample(dataset_media[:,1:],dataset_media[:,0])
+        return X_res, y_res
     # Se aplica la imputación de valores según la mediana
     elif imputacion=="mediana":
         dataset_mediana = []
         imp = SimpleImputer(missing_values=np.nan, strategy='median')
         dataset_mediana = imp.fit_transform(dataset2)
-        return dataset_mediana[:,1:], dataset_mediana[:,0]
+        X_res, y_res = sm.fit_resample(dataset_mediana[:,1:],dataset_mediana[:,0])
+        return X_res, y_res
     # No se aplica imputación de valores y se devuelve el conjunto de datos con NA's
     else:
         print("No se ha elegido un método de imputación, devolvemos el dataset bruto.")
@@ -212,7 +216,7 @@ def obtenerDatosTest(imputacion):
                 nueva_fila.append(np.nan)
             #CONVIERTO LAS ETIQUETAS A NÚMEROS
             elif 'neg' in v:
-                nueva_fila.append(0)
+                nueva_fila.append(-1)
             elif 'pos' in v:
                 nueva_fila.append(1)
             else:
@@ -263,5 +267,5 @@ print("Leyendo los datasets")
 dataset_train, labels_train = obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = obtenerDatosTest(imputacion="mediana")
 print("Ajustando SVM")
-clasificador_svm = ajustaSVM(dataset_train, labels_train, ficherosvm="svm_mediana.txt", ficherosave=None)
+clasificador_svm = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana.txt")
 obtenScores(clasificador_svm,dataset_test, labels_test)
