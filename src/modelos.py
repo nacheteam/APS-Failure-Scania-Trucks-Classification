@@ -179,12 +179,12 @@ def obtenerDatosTest(imputacion):
         print("No se ha elegido un método de imputación, devolvemos el dataset bruto.")
         return dataset1[:,1:], dataset1[:,0]
 
-def ajustaSVM(dataset_train,labels_train, save=False, ficherosvm=None):
+def ajustaSVM(dataset_train,labels_train, ficherosvm=None, ficherosave=None):
     if ficherosvm==None:
         clasificador_svm = svm.SVC(gamma="auto", verbose=True)
         clasificador_svm.fit(dataset_train,labels_train)
-        if save:
-            joblib.dump(clasificador_svm,ficherosvm)
+        if ficherosave!=None:
+            joblib.dump(clasificador_svm,ficherosave)
         return clasificador_svm
     else:
         clasificador_svm = joblib.load(ficherosvm)
@@ -202,5 +202,5 @@ print("Leyendo los datasets")
 dataset_train, labels_train = obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = obtenerDatosTest(imputacion="mediana")
 print("Ajustando SVM")
-clasificador_svm = ajustaSVM(dataset_train, labels_train, save=True, ficherosvm="svm_media.txt")
+clasificador_svm = ajustaSVM(dataset_train, labels_train, ficherosvm=None, ficherosave="svm_media.txt")
 obtenScores(clasificador_svm,dataset_test, labels_test)
