@@ -192,5 +192,6 @@ def obtenerDatos(fichero_train = "../dataset/aps_failure_training_set.csv", fich
     data_test, labels_test = obtenerDatosTest(fichero_test, imputacion)
     print("Reduciendo dimensionalidad")
     data_train_red, data_test_red = reduceDimensionalidad(data_train, data_test)
+    print("Se ha reducido de " + str(len(data_train[0])) + " características a " + str(len(data_train_red[0])))
     print("Fin lectura y preprocesamiento")
     return data_train_red, labels_train, data_test_red, labels_test
