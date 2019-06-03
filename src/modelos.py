@@ -94,7 +94,7 @@ def ajustaSGD(dataset_train, labels_train):
     return clf
 
 def ajustaBoosting(dataset_train, labels_train):
-    clf = AdaBoostClassifier(n_estimators=100, random_state=123456789, verbose=True)
+    clf = AdaBoostClassifier(n_estimators=100, random_state=123456789)
     clf.fit(dataset_train,labels_train)
     return clf
 
