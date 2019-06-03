@@ -83,6 +83,16 @@ def ajustaSVM(dataset_train,labels_train, ficherosvm=None, ficherosave=None):
         clasificador_svm = joblib.load(ficherosvm)
         return clasificador_svm
 
+def ajustaRandomForest(dataset_train, labels_train):
+    clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=123456789, verbose=True)
+    clf.fit(dataset_train, labels_train)
+    return clf
+
+def ajustaSGD(dataset_train, labels_train):
+    clf = linear_model.SGDClassifier(max_iter=10000, tol=1e-6, verbose=True)
+    clf.fit(dataset_train, labels_train)
+    return clf
+
 def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
     pred = clasificador.predict(dataset_test)
     score = clasificador.score(dataset_test, labels_test)
@@ -113,21 +123,14 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
 dataset_train, labels_train = preprocesamiento.obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = preprocesamiento.obtenerDatosTest(imputacion="mediana")
 
+# Random forest
+clf = ajustaRandomForest(dataset_train, labels_train)
+obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
 
 # Gradiente descendente estocástico
-'''
-clf = linear_model.SGDClassifier(max_iter=10000, tol=1e-6, verbose=True)
-clf.fit(dataset_train, labels_train)
-obtenScores(clf,dataset_test, labels_test)
-'''
+clf = ajustaSGD(dataset_train, labels_train)
+obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
 
 # SVM
-'''
-print("Ajustando SVM")
-clasificador_svm = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana.txt")
-obtenScores(clasificador_svm,dataset_test, labels_test)
-'''
-
-clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=123456789, verbose=True)
-clf.fit(dataset_train, labels_train)
-obtenScores(clf,dataset_test,labels_test)
+clf = ajustaSVM(dataset_train, labels_train, ficherosvm="svm_mediana.txt")
+obtenScores(clf,dataset_test, labels_test, nombre="SVM")
