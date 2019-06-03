@@ -12,6 +12,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn import linear_model
 from sklearn.ensemble import RandomForestClassifier
+from sklearn import metrics
 
 np.random.seed(123456789)
 
@@ -93,16 +94,25 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
     nombres = ["neg","pos"]
     plot_confusion_matrix(labels_test, pred, classes=nombres,normalize = False,title='Matriz de confusión para ' + nombre)
     plt.show()
+    print("Área bajo la curva ROC")
+    fpr, tpr, threshold = metrics.roc_curve(labels_test,pred)
+    roc_auc = metrics.auc(fpr,tpr)
+    plt.title('Curva ROC')
+    plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
+    plt.legend(loc = 'lower right')
+    plt.plot([0, 1], [0, 1],'r--')
+    plt.xlim([0, 1])
+    plt.ylim([0, 1])
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+    plt.show()
+
+
+
 
 dataset_train, labels_train = preprocesamiento.obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = preprocesamiento.obtenerDatosTest(imputacion="mediana")
 
-# SVM lineal
-'''
-clf = svm.LinearSVC(random_state=123456789, tol=1e-5, verbose=True)
-clf.fit(dataset_train, labels_train)
-obtenScores(clf,dataset_test, labels_test, nombre="LinearSVM")
-'''
 
 # Gradiente descendente estocástico
 '''
