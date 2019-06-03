@@ -121,6 +121,41 @@ def balanceaDataset(dataset):
     X_res, y_res = sm.fit_resample(dataset[:,1:],dataset[:,0])
     return X_res, y_res
 
+def nComponentsCriterion(vratio, explained_var=0.95):
+    '''
+    @brief Función que da el número de componentes que explican al menos un 95%
+    de la varianza dado el resultado de un PCA o FA.
+    @param vratio Porcentaje de varianza explicada para cada componente
+    @param explained_var Mínimo que requerimos de varianza explicada
+    @return Devuelve el número de componentes que explican al menos un
+    95% de la varianza
+    '''
+    index = 0
+    sum_var = 0
+    # Vamos acumulando la varianza
+    for i in range(len(vratio)):
+        sum_var+=vratio[i]
+        # Si pasamos el porcentaje que queremos actualizamos el índice con el actual
+        if sum_var>=explained_var:
+            index=i
+            break
+    # Devolevemos el indice que será el número de componentes
+    return index
+
+def reduceDimensionalidad(train, test):
+    # Creamos Factor Analysis
+    fa = decomposition.FactorAnalysis().fit(train)
+    # Obtenemos la varianza por componente
+    fa_transform = fa.fa_transform(train)
+    explained_variance = np.var(fa_transform, axis=0)
+    explained_variance_ratio = explained_variance / np.sum(explained_variance)
+    # Sacamos el número de componentes según el criterio
+    n_comp = nComponentsCriterion(explained_variance_ratio)
+    # Obtenemos la reducción
+    fa = decomposition.FactorAnalysis(n_components=n_comp).fit(train)
+    return fa.transform(train), fa.transform(test)
+
+
 def visualizaDatos(dataset,labels):
     # Pinto el dataset de la mediana en dos dimensiones
     dataset_reduced = TSNE(n_components=2).fit_transform(dataset)
@@ -149,3 +184,12 @@ def obtenerDatosTest(fichero="../dataset/aps_failure_test_set.csv", imputacion="
     labels = dataset3[:,0]
     dataset = dataset3[:,1:]
     return dataset,labels
+
+def obtenerDatos(fichero_train = "../dataset/aps_failure_training_set.csv", fichero_test ="../dataset/aps_failure_test_set.csv", imputacion="mediana"):
+    print("Leyendo ficheros")
+    data_train, labels_train = obtenerDatosTrain(fichero_train, imputacion)
+    data_test, labels_test = obtenerDatosTest(fichero_test, imputacion)
+    print("Reduciendo dimensionalidad")
+    data_train_red, data_test_red = reduceDimensionalidad(data_train, data_test)
+    print("Fin lectura y preprocesamiento")
+    return data_train_red, labels_train, data_test_red, labels_test
