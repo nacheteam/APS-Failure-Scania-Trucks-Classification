@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from imblearn.over_sampling import SMOTE
 from sklearn.impute import SimpleImputer
 from sklearn.manifold import TSNE
+from sklearn.decomposition import FactorAnalysis
 
 np.random.seed(123456789)
 DEBUG = False # Indica si se hacen o no prints
@@ -144,15 +145,15 @@ def nComponentsCriterion(vratio, explained_var=0.95):
 
 def reduceDimensionalidad(train, test):
     # Creamos Factor Analysis
-    fa = decomposition.FactorAnalysis().fit(train)
+    fa = FactorAnalysis().fit(train)
     # Obtenemos la varianza por componente
-    fa_transform = fa.fa_transform(train)
+    fa_transform = fa.transform(train)
     explained_variance = np.var(fa_transform, axis=0)
     explained_variance_ratio = explained_variance / np.sum(explained_variance)
     # Sacamos el número de componentes según el criterio
     n_comp = nComponentsCriterion(explained_variance_ratio)
     # Obtenemos la reducción
-    fa = decomposition.FactorAnalysis(n_components=n_comp).fit(train)
+    fa = FactorAnalysis(n_components=n_comp).fit(train)
     return fa.transform(train), fa.transform(test)
 
 
