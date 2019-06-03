@@ -93,6 +93,11 @@ def ajustaSGD(dataset_train, labels_train):
     clf.fit(dataset_train, labels_train)
     return clf
 
+def ajustaBoosting(dataset_train, labels_train):
+    clf = AdaBoostClassifier(n_estimators=100, random_state=123456789, verbose=True)
+    clf.fit(dataset_train,labels_train)
+    return clf
+
 def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
     pred = clasificador.predict(dataset_test)
     score = clasificador.score(dataset_test, labels_test)
@@ -123,6 +128,7 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
 dataset_train, labels_train = preprocesamiento.obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = preprocesamiento.obtenerDatosTest(imputacion="mediana")
 
+'''
 # Random forest
 clf = ajustaRandomForest(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
@@ -134,3 +140,8 @@ obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
 # SVM
 clf = ajustaSVM(dataset_train, labels_train, ficherosvm="svm_mediana.txt")
 obtenScores(clf,dataset_test, labels_test, nombre="SVM")
+'''
+
+# AdaBoost
+clf = ajustaBoosting(dataset_train, labels_train)
+obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
