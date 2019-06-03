@@ -12,6 +12,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn import linear_model
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
 from sklearn import metrics
 
 np.random.seed(123456789)
@@ -98,6 +99,11 @@ def ajustaBoosting(dataset_train, labels_train):
     clf.fit(dataset_train,labels_train)
     return clf
 
+def  ajustaRedNeuronal(dataset_train, labels_train):
+    clf = MLPClassifier(hidden_layer_sizes=(100,100,100), max_iter=10000, random_state=123456789, verbose=True)
+    clf.fit(dataset_train, labels_train)
+    return clf
+
 def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
     pred = clasificador.predict(dataset_test)
     score = clasificador.score(dataset_test, labels_test)
@@ -128,11 +134,12 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
 dataset_train, labels_train = preprocesamiento.obtenerDatosTrain(imputacion="mediana")
 dataset_test, labels_test = preprocesamiento.obtenerDatosTest(imputacion="mediana")
 
-'''
+
 # Random forest
 clf = ajustaRandomForest(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
 
+'''
 # Gradiente descendente estocástico
 clf = ajustaSGD(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
@@ -140,8 +147,12 @@ obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
 # SVM
 clf = ajustaSVM(dataset_train, labels_train, ficherosvm="svm_mediana.txt")
 obtenScores(clf,dataset_test, labels_test, nombre="SVM")
-'''
 
 # AdaBoost
 clf = ajustaBoosting(dataset_train, labels_train)
 obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
+
+# Red Neuronal
+clf = ajustaRedNeuronal(dataset_train, labels_train)
+obtenScores(clf, dataset_test, labels_test)
+'''
