@@ -131,9 +131,7 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
 
 
 
-dataset_train, labels_train = preprocesamiento.obtenerDatosTrain(imputacion="mediana")
-dataset_test, labels_test = preprocesamiento.obtenerDatosTest(imputacion="mediana")
-
+dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtenerDatos(imputacion="mediana")
 
 # Random forest
 clf = ajustaRandomForest(dataset_train, labels_train)
