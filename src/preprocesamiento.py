@@ -8,7 +8,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.manifold import TSNE
 
 np.random.seed(123456789)
-DEBUG = True # Indica si se hacen o no prints
+DEBUG = False # Indica si se hacen o no prints
 
 def leeFichero(fichero="../dataset/aps_failure_training_set.csv"):
     if DEBUG:
