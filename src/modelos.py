@@ -86,7 +86,8 @@ def ajustaSVM(dataset_train,labels_train, ficherosvm=None, ficherosave=None):
         return clasificador_svm
 
 def ajustaRandomForest(dataset_train, labels_train):
-    clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=123456789, verbose=True)
+    # Resultado del GridSearch
+    clf = RandomForestClassifier(n_estimators=189, random_state=123456789, verbose=True)
     clf.fit(dataset_train, labels_train)
     return clf
 
@@ -154,11 +155,25 @@ obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
 # Red Neuronal
 clf = ajustaRedNeuronal(dataset_train, labels_train)
 obtenScores(clf, dataset_test, labels_test)
-'''
+
 
 # Grid search para Random Forest
-random_forest = RandomForestClassifier(random_state=123456789, n_jobs=8)
-parametros = {'n_estimators': np.round(np.linspace(1,1000,40)).astype(int) , 'max_depth': np.round(np.linspace(1,20,10)).astype(int)}
-grid = GridSearchCV(random_forest, parametros, cv=5, scoring='recall', n_jobs=8, verbose=True)
+random_forest = RandomForestClassifier(random_state=123456789)
+parametros = {'n_estimators': np.round(np.linspace(100,200,10)).astype(int)}
+print("vAMOS AL GRID")
+grid = GridSearchCV(random_forest, parametros, cv=5,n_jobs=4, scoring='recall', verbose=True)
+print("Fin")
 grid.fit(dataset_train, labels_train)
-print(grid.best_params)
+print(grid.best_params_)
+'''
+# Grid search para svm
+
+C_range = np.logspace(-2,11,13)
+gamma_range = np.logspace(-2,3,13)
+param_grid = dict(gamma=gamma_range, C=C_range)
+scores = ['recall']
+
+for score in scores:
+    clf = GridSearchCV(SVC(kernel='rbf',class_weight = 'balanced'),param_grid = param_grid, cv=10,scoring = '%s_macro' % score)
+    clf.fit(dataset_train,labels_train)
+    print(clf.best_params_)
