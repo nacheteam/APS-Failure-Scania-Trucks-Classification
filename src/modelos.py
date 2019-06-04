@@ -6,6 +6,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.externals import joblib
 from sklearn import metrics
 from imblearn.over_sampling import SMOTE
+from sklearn.model_selection import GridSearchCV
 # Modelos
 from sklearn import svm
 from sklearn.ensemble import AdaBoostClassifier
@@ -133,11 +134,11 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
 
 dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtenerDatos(imputacion="mediana")
 
+'''
 # Random forest
 clf = ajustaRandomForest(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
 
-'''
 # Gradiente descendente estocástico
 clf = ajustaSGD(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
@@ -154,3 +155,10 @@ obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
 clf = ajustaRedNeuronal(dataset_train, labels_train)
 obtenScores(clf, dataset_test, labels_test)
 '''
+
+# Grid search para Random Forest
+random_forest = RandomForestClassifier(random_state=123456789, n_jobs=8)
+parametros = {'n_estimators': np.round(np.linspace(1,1000,40)).astype(int) , 'max_depth': np.round(np.linspace(1,20,10)).astype(int)}
+grid = GridSearchCV(random_forest, parametros, cv=5, scoring='recall', n_jobs=8, verbose=True)
+grid.fit(dataset_train, labels_train)
+print(grid.best_params)

@@ -187,11 +187,11 @@ def obtenerDatosTest(fichero="../dataset/aps_failure_test_set.csv", imputacion="
     return dataset,labels
 
 def obtenerDatos(fichero_train = "../dataset/aps_failure_training_set.csv", fichero_test ="../dataset/aps_failure_test_set.csv", imputacion="mediana"):
-    print("Leyendo ficheros")
+    #print("Leyendo ficheros")
     data_train, labels_train = obtenerDatosTrain(fichero_train, imputacion)
     data_test, labels_test = obtenerDatosTest(fichero_test, imputacion)
-    print("Reduciendo dimensionalidad")
-    data_train_red, data_test_red = reduceDimensionalidad(data_train, data_test)
-    print("Se ha reducido de " + str(len(data_train[0])) + " características a " + str(len(data_train_red[0])))
-    print("Fin lectura y preprocesamiento")
-    return data_train_red, labels_train, data_test_red, labels_test
+    #print("Reduciendo dimensionalidad")
+    #data_train_red, data_test_red = reduceDimensionalidad(data_train, data_test)
+    #print("Se ha reducido de " + str(len(data_train[0])) + " características a " + str(len(data_train_red[0])))
+    #print("Fin lectura y preprocesamiento")
+    return data_train, labels_train, data_test, labels_test
