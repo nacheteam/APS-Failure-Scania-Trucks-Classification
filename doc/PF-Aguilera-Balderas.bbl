@@ -1,0 +1,28 @@
+\begin{thebibliography}{1}
+
+\bibitem{fa1}
+R.B. Cattell.
+\newblock {Factor analysis}.
+\newblock {\em New York: Harper}, 1952.
+
+\bibitem{smote}
+N.V. Chawla, K.W. Bowyer, L.O. Hall, and W.P. Kegelmeyer.
+\newblock {SMOTE: Synthetic Minority Over-sampling Technique}.
+\newblock {\em Journal of Artificial Intelligence Research}, 2002.
+
+\bibitem{fa2}
+B.~Fruchter.
+\newblock {Introduction to Factor Analysis}.
+\newblock {\em Van Nostrand}, 1954.
+
+\bibitem{ms}
+W.K. Härdle and Z.~Hlávka.
+\newblock {Multivariate Statistics}.
+\newblock {\em Springer}, 2015.
+
+\bibitem{amsa}
+L.~Simar and W.K. Härdle.
+\newblock {Applied Multivariate Statistical Analysis}.
+\newblock {\em Springer}, 2015.
+
+\end{thebibliography}

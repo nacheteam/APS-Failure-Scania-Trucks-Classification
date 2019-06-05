@@ -132,12 +132,7 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
     plt.show()
 
 
-
-
 dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtenerDatos(imputacion="mediana")
-std_scaler = preprocessing.StandardScaler().fit(dataset_train)
-dataset_train_norm = std_scaler.transform(dataset_train)
-dataset_test_norm = std_scaler.transform(dataset_test)
 
 '''
 # Random forest
@@ -147,15 +142,15 @@ obtenScores(clf,dataset_test_norm, labels_test,nombre="Random Forest")
 # Gradiente descendente estocástico
 clf = ajustaSGD(dataset_train_norm, labels_train)
 obtenScores(clf,dataset_test_norm, labels_test, nombre = "SGD")
-
+'''
 # SVM
-clf = ajustaSVM(dataset_train_norm, labels_train, ficherosvm="svm_mediana.txt")
+clf = ajustaSVM(dataset_train_norm, labels_train, ficherosave="svm_mediana_normalizacion.txt")
 obtenScores(clf,dataset_test_norm, labels_test, nombre="SVM")
 '''
 # AdaBoost
 clf = ajustaBoosting(dataset_train_norm, labels_train)
 obtenScores(clf,dataset_test_norm,labels_test, nombre="AdaBoost")
-'''
+
 # Red Neuronal
 clf = ajustaRedNeuronal(dataset_train_norm, labels_train)
 obtenScores(clf, dataset_test_norm, labels_test)
