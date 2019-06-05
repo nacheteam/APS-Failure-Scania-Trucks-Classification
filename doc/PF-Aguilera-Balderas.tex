@@ -62,7 +62,70 @@ En primer, vimos que había características que tenían más de un 70\% de sus 
 
 A partir de ahí, nuestro conjunto de datos es más tratable. Sin embargo, aunque más dispersos, aún hay muchos valores perdidos con los que los modelos no pueden lidiar. Para solucionarlo, consultando la bibliografía, utilizamos dos tipos de imputación de valores perdidos: imputación de la mediana y de la media. La mediana nos ha dado mejores resultados en general, por lo que continuamos nuestro desarrollo con la mediana. 
 
+\subsubsection{Desbalanceo de clases}
 
+Sin duda alguna, uno de los grandes problemas a los que nos enfrentamos cuando tratamos este conjunto de datos es el gran desbalanceo entre las clases. Hicimos una primera visualización de los datos observando el desbalanceo pero, a su vez, leve solapamiento (lo que a priori es una ventaja).
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.6]{pre-smote.jpg}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Representación de las instancias tras la imputación de VP con la mediana} 
+	\label{fig:sep-clases}
+\end{figure}
+
+Sin embargo, a pesar de la separación de las clases éramos incapaces de generar buenos resultados con los modelos y los clasificadores siempre etiquetaban las instancias de test como pertenecientes a la clase negativa. Esto daba lugar a un buen accuracy, pero las demás medidas que tenemos en cuenta, como son recall o f1-score eran nefastas.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{conf1.jpg}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión generada por SVM /RF/SGD/Red Neuronal hasta el momento} 
+	\label{fig:conf1}
+\end{figure}
+
+Por tanto, a pesar de la buena disposición de los datos, no se obtenían buenos resultados. A la vista de los mismos, nos decantamos por utilizar técnicas de oversampling para equilibrar el número de instancias de cada clase. En particular, elegimos SMOTE (\cite{smote}) como herramienta. Tras su aplicación, contamos finalmente con 109928 instancias de cada clase, apareciendo la siguiente disposición de datos:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.55]{tras-smote.jpg}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Disposición del dataset tras SMOTE} 
+	\label{fig:post-smote}
+\end{figure}
+
+Como se puede apreciar, hemos perdido la localidad de las clases, aunque, como se verá, va a ser muy positivo.
+
+\subsubsection{Selección de características}
+
+Tras la eliminación de características por poseer demasiados valores perdidos, poseemos 164. No nos parece un número adecuado para utilizar PCA (más recomendado para cuando hay muchas más variables, ya que el sacrificio de la interpretabilidad es menos costoso) así que nos decantamos por otras técnicas de estadística multivariante, como es análisis factorial (\cite{ms},\cite{amsa},\cite{fa1}, \cite{fa2}). Análisis factorial sí nos ayuda a darle interpretabilidad al modelo y a encontrar qué características son las más determinantes. Reducimos así de 164 a 151. Sin embargo, los resultados en los modelos nos harán comprobar que, a pesar de mejorar el accuracy, se empeora la clasificación de las instancias de la clase positiva, como se puede ver en la siguiente comparación entre matrices de confunsión para Random Forest:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Verd \textbackslash Pred & 0     & 1    \\ \hline
+		0                        & 56160 & 2840 \\ \hline
+		1                        & 77    & 923  \\ \hline
+	\end{tabular}
+	\caption{Matriz de confusión sin FA}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Verd \textbackslash Pred & 0     & 1    \\ \hline
+		0                        & 57077 & 1923 \\ \hline
+		1                        & 113   & 887  \\ \hline
+	\end{tabular}
+	\caption{Matriz de confusión con FA}
+\end{table}
+
+Por tanto, como nuestro objetivo es maximizar todas las medidas, especialmente recall (la clase minoritaria sigue siendo, de forma natural, la clase positiva), optamos por no aplicar de forma definitiva análisis factorial. Después de explorar estas dos técnicas, llegamos a la conclusión de que el tamaño del dataset hace que el número de características no sea muy elevado, por lo que acabamos por no seleccionar ningún subconjunto de ellas.
+
+\subsubsection{Normalización}
+
+En el análisis exploratorio observamos que el rango de las variables es absolutamente dispar. Todos los clasificadores basados en instancias (que incorporan la distancia) necesitan de un rango de variables equivalente para poder dar el peso adecuada a cada una. Por eso, realizamos una normalización estándar a los datos.
+
+ 
 
 %\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
 %	\centering

@@ -8,8 +8,9 @@ from sklearn.impute import SimpleImputer
 from sklearn.manifold import TSNE
 from sklearn.decomposition import FactorAnalysis
 
+
 np.random.seed(123456789)
-DEBUG = False # Indica si se hacen o no prints
+DEBUG = True # Indica si se hacen o no prints
 
 def leeFichero(fichero="../dataset/aps_failure_training_set.csv"):
     if DEBUG:
@@ -167,6 +168,8 @@ def visualizaDatos(dataset,labels):
     plt.legend()
     plt.title("Conjunto de datos")
     plt.show()
+
+
 
 def obtenerDatosTrain(fichero="../dataset/aps_failure_training_set.csv", imputacion="mediana"):
     dataset = leeFichero(fichero)
