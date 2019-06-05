@@ -7,6 +7,7 @@ from imblearn.over_sampling import SMOTE
 from sklearn.impute import SimpleImputer
 from sklearn.manifold import TSNE
 from sklearn.decomposition import FactorAnalysis
+from sklearn import preprocessing
 
 
 np.random.seed(123456789)
