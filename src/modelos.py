@@ -136,24 +136,24 @@ dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtene
 
 '''
 # Random forest
-clf = ajustaRandomForest(dataset_train_norm, labels_train)
-obtenScores(clf,dataset_test_norm, labels_test,nombre="Random Forest")
+clf = ajustaRandomForest(dataset_train, labels_train)
+obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
 
 # Gradiente descendente estocástico
-clf = ajustaSGD(dataset_train_norm, labels_train)
-obtenScores(clf,dataset_test_norm, labels_test, nombre = "SGD")
+clf = ajustaSGD(dataset_train, labels_train)
+obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
 '''
 # SVM
-clf = ajustaSVM(dataset_train_norm, labels_train, ficherosave="svm_mediana_normalizacion.txt")
-obtenScores(clf,dataset_test_norm, labels_test, nombre="SVM")
+clf = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana_normalizacion.txt")
+obtenScores(clf,dataset_test, labels_test, nombre="SVM")
 '''
 # AdaBoost
-clf = ajustaBoosting(dataset_train_norm, labels_train)
-obtenScores(clf,dataset_test_norm,labels_test, nombre="AdaBoost")
+clf = ajustaBoosting(dataset_train, labels_train)
+obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
 
 # Red Neuronal
-clf = ajustaRedNeuronal(dataset_train_norm, labels_train)
-obtenScores(clf, dataset_test_norm, labels_test)
+clf = ajustaRedNeuronal(dataset_train, labels_train)
+obtenScores(clf, dataset_test, labels_test)
 
 
 # Grid search para Random Forest
