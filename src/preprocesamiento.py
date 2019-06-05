@@ -7,6 +7,8 @@ from imblearn.over_sampling import SMOTE
 from sklearn.impute import SimpleImputer
 from sklearn.manifold import TSNE
 from sklearn.decomposition import FactorAnalysis
+from sklearn import preprocessing
+
 
 np.random.seed(123456789)
 DEBUG = False # Indica si se hacen o no prints
@@ -168,6 +170,8 @@ def visualizaDatos(dataset,labels):
     plt.title("Conjunto de datos")
     plt.show()
 
+
+
 def obtenerDatosTrain(fichero="../dataset/aps_failure_training_set.csv", imputacion="mediana"):
     dataset = leeFichero(fichero)
     dataset1 = eliminaCaracteristicasMalas(dataset)
@@ -190,8 +194,12 @@ def obtenerDatos(fichero_train = "../dataset/aps_failure_training_set.csv", fich
     #print("Leyendo ficheros")
     data_train, labels_train = obtenerDatosTrain(fichero_train, imputacion)
     data_test, labels_test = obtenerDatosTest(fichero_test, imputacion)
+
+    std_scaler = preprocessing.StandardScaler().fit(data_train)
+    dataset_train_norm = std_scaler.transform(data_train)
+    dataset_test_norm = std_scaler.transform(data_test)
     #print("Reduciendo dimensionalidad")
     #data_train_red, data_test_red = reduceDimensionalidad(data_train, data_test)
     #print("Se ha reducido de " + str(len(data_train[0])) + " características a " + str(len(data_train_red[0])))
     #print("Fin lectura y preprocesamiento")
-    return data_train, labels_train, data_test, labels_test
+    return dataset_train_norm, labels_train, dataset_test_norm, labels_test

@@ -15,6 +15,7 @@ from sklearn import linear_model
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn import metrics
+from sklearn import preprocessing
 
 np.random.seed(123456789)
 
@@ -131,8 +132,6 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
     plt.show()
 
 
-
-
 dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtenerDatos(imputacion="mediana")
 
 '''
@@ -143,11 +142,11 @@ obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
 # Gradiente descendente estocástico
 clf = ajustaSGD(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
-
+'''
 # SVM
-clf = ajustaSVM(dataset_train, labels_train, ficherosvm="svm_mediana.txt")
+clf = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana_normalizacion.txt")
 obtenScores(clf,dataset_test, labels_test, nombre="SVM")
-
+'''
 # AdaBoost
 clf = ajustaBoosting(dataset_train, labels_train)
 obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
@@ -165,15 +164,16 @@ grid = GridSearchCV(random_forest, parametros, cv=5,n_jobs=4, scoring='recall', 
 print("Fin")
 grid.fit(dataset_train, labels_train)
 print(grid.best_params_)
-'''
-# Grid search para svm
 
-C_range = np.logspace(-2,11,13)
-gamma_range = np.logspace(-2,3,13)
-param_grid = dict(gamma=gamma_range, C=C_range)
+# Grid search para svm no acaba. Pruebo con
+
+C_range = [0.1]
+#gamma_range = np.logspace(-2,3,13)
+param_grid = dict(C=C_range)
 scores = ['recall']
 
 for score in scores:
-    clf = GridSearchCV(svm.SVC(kernel='rbf',class_weight = 'balanced'),param_grid = param_grid, cv=10,scoring = '%s_macro' % score)
+    clf = GridSearchCV(svm.SVC(kernel='rbf',class_weight = 'balanced'),param_grid = param_grid, cv=5,scoring = '%s_macro' % score)
     clf.fit(dataset_train,labels_train)
     print(clf.best_params_)
+'''
