@@ -125,7 +125,58 @@ Por tanto, como nuestro objetivo es maximizar todas las medidas, especialmente r
 
 En el análisis exploratorio observamos que el rango de las variables es absolutamente dispar. Todos los clasificadores basados en instancias (que incorporan la distancia) necesitan de un rango de variables equivalente para poder dar el peso adecuada a cada una. Por eso, realizamos una normalización estándar a los datos.
 
- 
+\section{Modelos y clasificación}
+
+\subsection{Gradiente descendente estocástico}
+
+
+El primer modelo que utilizamos es Gradiente Descendente Estocástico. Establecemos un número máximo de iteraciones de 10000 y una tolerancia de $1^{-6}$. Se produce la convergencia tras 46 épocas con los siguientes resultados:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		Score     & 0.97105    \\ \hline
+		Precision & 0.9883861  \\ \hline
+		Recall    & 0.97105    \\ \hline
+		F1-Score  & 0.97734082 \\ \hline
+	\end{tabular}
+	\caption{Resumen de las medidas obtenidas con SGD}
+\end{table}
+
+Además, obtenemos la siguiente matriz de confusión:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{SGDConf.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión para SGD} 
+	\label{fig:sgd-conf}
+\end{figure}
+
+y la siguiente curva ROC:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{ROC-SGD.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva ROC para SGD} 
+	\label{fig:roc-sgd}
+\end{figure}
+
+Como se puede ver, los resultados son altamente satisfactorios. Además, con un problema que posee un volumen de datos tan grande, el tiempo de computación es un factor a tener en cuenta, y, en efecto, SGD apenas tarda un minuto en concluir. 
+
+\subsubsection{AdaBoost}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		Score     & 0.9694   \\ \hline
+		Precision & 0.98717  \\ \hline
+		Recall    & 0.9694   \\ \hline
+		F1-Score  & 0.976038 \\ \hline
+	\end{tabular}
+	\caption{Resumen de las medidas obtenidas con AdaBoost}
+\end{table}
 
 %\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
 %	\centering
