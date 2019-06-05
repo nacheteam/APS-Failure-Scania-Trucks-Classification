@@ -174,6 +174,6 @@ param_grid = dict(gamma=gamma_range, C=C_range)
 scores = ['recall']
 
 for score in scores:
-    clf = GridSearchCV(SVC(kernel='rbf',class_weight = 'balanced'),param_grid = param_grid, cv=10,scoring = '%s_macro' % score)
+    clf = GridSearchCV(svm.SVC(kernel='rbf',class_weight = 'balanced'),param_grid = param_grid, cv=10,scoring = '%s_macro' % score)
     clf.fit(dataset_train,labels_train)
     print(clf.best_params_)
