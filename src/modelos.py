@@ -142,19 +142,19 @@ obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
 # Gradiente descendente estocástico
 clf = ajustaSGD(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
-'''
+
 # SVM
 clf = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana_normalizacion.txt")
 obtenScores(clf,dataset_test, labels_test, nombre="SVM")
-'''
+
 # AdaBoost
 clf = ajustaBoosting(dataset_train, labels_train)
 obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
-
+'''
 # Red Neuronal
 clf = ajustaRedNeuronal(dataset_train, labels_train)
-obtenScores(clf, dataset_test, labels_test)
-
+obtenScores(clf, dataset_test, labels_test, nombre="Red Neuronal")
+'''
 
 # Grid search para Random Forest
 random_forest = RandomForestClassifier(random_state=123456789)
