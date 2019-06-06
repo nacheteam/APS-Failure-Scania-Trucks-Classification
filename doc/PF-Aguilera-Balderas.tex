@@ -238,6 +238,42 @@ Veamos la curva ROC:
 	\label{fig:roc-pmc}
 \end{figure}
 
+\subsubsection{Random Forest}
+
+El tercer modelo empleado ha sido un Random Forest. Los parámetros del modelo han sido obtenidos a través de un GridSearch para obtener el mejor número de estimadores o clasificadores simples. En nuestro caso el mejor valor obtenido es con 189 estimadores. Los resultados han sido:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		Score     & 0.9864   \\ \hline
+		Precision & 0.9925  \\ \hline
+		Recall    & 0.9864   \\ \hline
+		F1-Score  & 0.9883 \\ \hline
+	\end{tabular}
+	\caption{Resumen de las medidas obtenidas con Random Forest}
+\end{table}
+
+Los resultados generales como podemos ver parecen tremendamente prometedores al igual que nos ha ocurrido con la red neuronal, vamos a ver la matriz de confusión:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{RandomForestConf.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión para Random Forest} 
+	\label{fig:conf-rf}
+\end{figure}
+
+Como podemos ver en este caso se producen 999 aciertos y sólo 1 fallos con lo que hemos conseguido superar tanto el resultado obtenido por Gradiente Descendente Estocástico como el modelo de perceptrón multicapa con lo que Random Forest es actualmente el modelo que mejores resultados ha obtenido.
+
+Veamos la curva ROC:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{ROC-RF.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva ROC para Random Forest} 
+	\label{fig:roc-rf}
+\end{figure}
+
 \newpage
 \section{Bibliografía}
 
