@@ -4,6 +4,8 @@
 \usepackage{hyperref}
 \usepackage{soul}
 
+\setlength{\parskip}{10px}
+
 
 %----------------------------------------------------------------------------------------
 %	TÍTULO Y DATOS DEL ALUMNO
@@ -56,9 +58,9 @@ Nos encontramos ante un problema de clasificación binaria (clase positiva y neg
 
 \subsection{Análisis explotario y valores perdidos}
 
-Nos encontramos ante un problema que tiene una gran cantidad de datos. En principio, este hecho es una ventaja, dado que la capacidad de generalización aumenta enormemente. Sin embargo, uno de los grandes retos ha sido, por un lado, el gran desbalanceo entre las clases y, por otro, la gran cantidad de valores perdidos e inconsistencias en los datos. Nos ocupamos de esto segundo en primer lugar. El análisis exploratorio de los datos nos hizo llegar a la conclusión de que, de entre las pocas instancias que forman parte de la clase positiva (esto es, con un fallo en el sistema APS), los valores de las variables estaban extraviados o, si no era así, más parecían outliers que otra cosa. En seguida nos dimos cuenta de que, desde un punto de vista físico tiene sentido, dado que la avería en un componente puede hacer que el comportamiento en los demás sea errático y, como consecuencia, puede generar observaciones de lo más variopintas. No obstante, nos dedicamos a eliminar los valores perdidos y le dimos validez total a los datos de los que disponemos. \\
+Nos encontramos ante un problema que tiene una gran cantidad de datos. En principio, este hecho es una ventaja, dado que la capacidad de generalización aumenta enormemente. Sin embargo, uno de los grandes retos ha sido, por un lado, el gran desbalanceo entre las clases y, por otro, la gran cantidad de valores perdidos e inconsistencias en los datos. Nos ocupamos de esto segundo en primer lugar. El análisis exploratorio de los datos nos hizo llegar a la conclusión de que, de entre las pocas instancias que forman parte de la clase positiva (esto es, con un fallo en el sistema APS), los valores de las variables estaban extraviados o, si no era así, más parecían outliers que otra cosa. En seguida nos dimos cuenta de que, desde un punto de vista físico tiene sentido, dado que la avería en un componente puede hacer que el comportamiento en los demás sea errático y, como consecuencia, puede generar observaciones de lo más variopintas. No obstante, nos dedicamos a eliminar los valores perdidos y le dimos validez total a los datos de los que disponemos. 
 
-En primer, vimos que había características que tenían más de un 70\% de sus valores como NA. Decidimos eliminarlas, ya que iban a entorpecer enormemente el trabajo de los modelos (en alguno de ellos, incluso son incompatibles). Eliminamos por tanto las características 2,75,76,77,78,79 y 113, por lo que pasamos de 171 a 164. En lo que se refiere a instancias, observamos que gran cantidad de ellas también estaban pobladas de valores perdidos. Teniendo en cuenta el gran desbalanceo de las clases, eliminamos aquellas instancias con etiqueta negativa que tuvieran más de un 15\% de sus entradas como NA, de forma que pasamos de 60000 instancias a 55964. \\
+En primer, vimos que había características que tenían más de un 70\% de sus valores como NA. Decidimos eliminarlas, ya que iban a entorpecer enormemente el trabajo de los modelos (en alguno de ellos, incluso son incompatibles). Eliminamos por tanto las características 2,75,76,77,78,79 y 113, por lo que pasamos de 171 a 164. En lo que se refiere a instancias, observamos que gran cantidad de ellas también estaban pobladas de valores perdidos. Teniendo en cuenta el gran desbalanceo de las clases, eliminamos aquellas instancias con etiqueta negativa que tuvieran más de un 15\% de sus entradas como NA, de forma que pasamos de 60000 instancias a 55964. 
 
 A partir de ahí, nuestro conjunto de datos es más tratable. Sin embargo, aunque más dispersos, aún hay muchos valores perdidos con los que los modelos no pueden lidiar. Para solucionarlo, consultando la bibliografía, utilizamos dos tipos de imputación de valores perdidos: imputación de la mediana y de la media. La mediana nos ha dado mejores resultados en general, por lo que continuamos nuestro desarrollo con la mediana. 
 
@@ -166,6 +168,8 @@ Como se puede ver, los resultados son altamente satisfactorios. Además, con un 
 
 \subsubsection{AdaBoost}
 
+El segundo modelo empleado es la implementación de Boosting conocida como AdaBoost con un parámetro de estimadores de 100. 
+
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|c|c|}
@@ -177,6 +181,26 @@ Como se puede ver, los resultados son altamente satisfactorios. Además, con un 
 	\end{tabular}
 	\caption{Resumen de las medidas obtenidas con AdaBoost}
 \end{table}
+
+Como podemos ver los resultados obtenidos son satisfactorios, vamos a ver ahora la matriz de confusión para tener una idea mejor y más completa del resultado.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{AdaBoostConf.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión para AdaBoost} 
+	\label{fig:conf-adaboost}
+\end{figure}
+
+Analizando ahora el resultado podemos ver que la variable más determinante, que en nuestro caso es acertar las etiquetas 1 (los fallos en frenos) es menor que en el caso de SGD, es decir en SGD obtenemos una mayor tasa de acierto en los verdaderos positivos de la clase 1 por lo que de momento nos interesa más dicho modelo que Boosting.
+
+Podemos visualizar asimismo la curva ROC.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{ROC-AB.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva ROC para AdaBoost} 
+	\label{fig:roc-ab}
+\end{figure}
 
 %\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
 %	\centering
