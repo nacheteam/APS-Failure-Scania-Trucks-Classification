@@ -77,7 +77,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,normalize=False,title=None,cma
 
 def ajustaSVM(dataset_train,labels_train, ficherosvm=None, ficherosave=None):
     if ficherosvm==None:
-        clasificador_svm = svm.SVC(gamma="auto", verbose=True)
+        clasificador_svm = svm.SVC(gamma=0.01, C=0.95, verbose=True)
         clasificador_svm.fit(dataset_train,labels_train)
         if ficherosave!=None:
             joblib.dump(clasificador_svm,ficherosave)
@@ -134,11 +134,11 @@ def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
 
 dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtenerDatos(imputacion="mediana")
 
-'''
+
 # Random forest
 clf = ajustaRandomForest(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
-
+'''
 # Gradiente descendente estocástico
 clf = ajustaSGD(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
@@ -150,11 +150,11 @@ obtenScores(clf,dataset_test, labels_test, nombre="SVM")
 # AdaBoost
 clf = ajustaBoosting(dataset_train, labels_train)
 obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
-'''
+
 # Red Neuronal
 clf = ajustaRedNeuronal(dataset_train, labels_train)
 obtenScores(clf, dataset_test, labels_test, nombre="Red Neuronal")
-'''
+
 
 # Grid search para Random Forest
 random_forest = RandomForestClassifier(random_state=123456789)
