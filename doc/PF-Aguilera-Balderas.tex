@@ -240,7 +240,7 @@ Veamos la curva ROC:
 
 \subsubsection{Random Forest}
 
-El tercer modelo empleado ha sido un Random Forest. Los parámetros del modelo han sido obtenidos a través de un GridSearch para obtener el mejor número de estimadores o clasificadores simples. En nuestro caso el mejor valor obtenido es con 189 estimadores. Los resultados han sido:
+El cuarto modelo empleado ha sido un Random Forest. Los parámetros del modelo han sido obtenidos a través de un GridSearch para obtener el mejor número de estimadores o clasificadores simples. En nuestro caso el mejor valor obtenido es con 189 estimadores. Los resultados han sido:
 
 \begin{table}[H]
 	\centering
@@ -272,6 +272,42 @@ Veamos la curva ROC:
 	\includegraphics[scale=0.6]{ROC-RF.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
 	\caption{Curva ROC para Random Forest} 
 	\label{fig:roc-rf}
+\end{figure}
+
+\subsubsection{SMV}
+
+El último modelo empleado ha sido SVM. Los parámetros del modelo han sido obtenidos a través de un GridSearch para obtener los mejores valores de gamma y C tal y como se indica en el PDF. En nuestro caso el mejor valor obtenido de gamma ha sido 0.01 y C 0.95 con el kernel RBF. Los resultados han sido:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		Score     & 0.97665   \\ \hline
+		Precision & 0.98972  \\ \hline
+		Recall    & 0.97665   \\ \hline
+		F1-Score  & 0.98120 \\ \hline
+	\end{tabular}
+	\caption{Resumen de las medidas obtenidas con SVM}
+\end{table}
+
+Los resultados generales como podemos ver no son tan buenos a priori como en la red neuronal y random forest, aún así vamos a ver la matriz de confusión:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{SVM-CONF.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión para SVM} 
+	\label{fig:conf-svm}
+\end{figure}
+
+Como podemos ver en este caso se producen 970 aciertos y 30 fallos con lo que este modelo ha conseguido funcionar mejor que SGD y AdaBoost pero no que Random Forest ni Perceptrón multicapa.
+
+Veamos la curva ROC:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{SVM-ROC.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva ROC para SVM} 
+	\label{fig:roc-svm}
 \end{figure}
 
 \newpage
