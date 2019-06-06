@@ -202,13 +202,41 @@ Podemos visualizar asimismo la curva ROC.
 	\label{fig:roc-ab}
 \end{figure}
 
-%\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
-%	\centering
-%	\includegraphics[scale=0.6]{count-clases.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
-%	\caption{Histograma con el número de instancias por clase} 
-%	\label{fig:clases}
-%\end{figure}
+\subsubsection{Red Neuronal (Perceptrón multicapa)}
 
+El tercer modelo empleado ha sido una Red Neuronal, en concreto un Perceptrón Multicapa. Los parámetros empleados en el modelo han sido 3 capas con 100 estimadores simples por capa, con un número máximo de iteraciones de 10000. La convergencia del modelo se produce mucho antes de estas iteraciones máximas, en concreto en la iteración 63. Los resultados han sido:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		Score     & 0.98575   \\ \hline
+		Precision & 0.992269  \\ \hline
+		Recall    & 0.98575   \\ \hline
+		F1-Score  & 0.98782 \\ \hline
+	\end{tabular}
+	\caption{Resumen de las medidas obtenidas con Perceptrón Multicapa}
+\end{table}
+
+Los resultados generales como podemos ver parecen tremendamente prometedores, vamos a ver la matriz de confusión:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{CONF-NEURONAL.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión para Perceptrón Multicapa} 
+	\label{fig:conf-pmc}
+\end{figure}
+
+Como podemos ver en este caso se producen 997 aciertos y sólo 3 fallos con lo que hemos conseguido superar incluso el resultado obtenido por Gradiente Descendente Estocástico con el modelo de perceptrón multicapa.
+
+Veamos la curva ROC:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{ROC-NEURONAL.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva ROC para Perceptrón Multicapa} 
+	\label{fig:roc-pmc}
+\end{figure}
 
 \newpage
 \section{Bibliografía}

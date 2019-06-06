@@ -9,4 +9,5 @@
 \contentsline {section}{\numberline {3}Modelos y clasificaci\IeC {\'o}n}{7}{section.3}
 \contentsline {subsection}{\numberline {3.1}Gradiente descendente estoc\IeC {\'a}stico}{7}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}AdaBoost}{9}{subsubsection.3.1.1}
-\contentsline {section}{\numberline {4}Bibliograf\IeC {\'\i }a}{11}{section.4}
+\contentsline {subsubsection}{\numberline {3.1.2}Red Neuronal (Perceptr\IeC {\'o}n multicapa)}{10}{subsubsection.3.1.2}
+\contentsline {section}{\numberline {4}Bibliograf\IeC {\'\i }a}{12}{section.4}
