@@ -118,7 +118,7 @@ def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_t
     print("F1 Score: " + str(metrics.f1_score(labels_test,pred,average="weighted")))
     print("#####################################################################")
     print("Ein: " + str(1-metrics.accuracy_score(labels_train, pred_in)))
-    print("Eout: " + str(1-metrics.accuracy_score(labels_test, pred)) + "\n\n")
+    print("Etest: " + str(1-metrics.accuracy_score(labels_test, pred)) + "\n\n")
     print("Matriz de confusión")
     nombres = ["neg","pos"]
     plot_confusion_matrix(labels_test, pred, classes=nombres,normalize = False,title='Matriz de confusión para ' + nombre)
