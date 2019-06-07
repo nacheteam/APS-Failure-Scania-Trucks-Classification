@@ -10,12 +10,7 @@
 \contentsline {subsection}{\numberline {3.1}Error de generalizaci\IeC {\'o}n y dimensi\IeC {\'o}n de VC}{8}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Gradiente descendente estoc\IeC {\'a}stico}{9}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}AdaBoost}{11}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}Red Neuronal (Perceptr\IeC {\'o}n multicapa)}{12}{subsubsection.3.2.2}
-\contentsline {subsubsection}{\numberline {3.2.3}Random Forest}{14}{subsubsection.3.2.3}
-<<<<<<< HEAD
-\contentsline {subsubsection}{\numberline {3.2.4}SVM}{15}{subsubsection.3.2.4}
-\contentsline {section}{\numberline {4}Bibliograf\IeC {\'\i }a}{17}{section.4}
-=======
+\contentsline {subsubsection}{\numberline {3.2.2}Red Neuronal (Perceptr\IeC {\'o}n multicapa)}{13}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Random Forest}{15}{subsubsection.3.2.3}
 \contentsline {subsubsection}{\numberline {3.2.4}SVM}{16}{subsubsection.3.2.4}
-\contentsline {section}{\numberline {4}Bibliograf\IeC {\'\i }a}{18}{section.4}
->>>>>>> 08f16354dc4795d555159417c27af4c45cb20790
+\contentsline {section}{\numberline {4}Bibliograf\IeC {\'\i }a}{19}{section.4}

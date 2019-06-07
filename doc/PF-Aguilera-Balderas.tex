@@ -205,6 +205,18 @@ Con respecto a la segunda forma de calcularlo (con $E_{test}=0.02895000000000003
 $$E_{out} \leq 0.033845879766038436$$
 
 Nos quedamos con la segunda por ser más pequeña.
+
+Por último vamos a ver la curva de aprendizaje del modelo:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{aprendizaje-SGD.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva de aprendizaje para SGD} 
+	\label{fig:aprendizaje-sgd}
+\end{figure}
+
+Como podemos ver la tendencia tanto de $E_{in}$ como $E_{out}$ es la de bajar hacia 0, aunque veremos que la curva no es del todo satisfactoria comparada con la de otros modelos.
+
 \subsubsection{AdaBoost}
 
 El segundo modelo empleado es la implementación de Boosting conocida como AdaBoost con un parámetro de estimadores de 100. 
