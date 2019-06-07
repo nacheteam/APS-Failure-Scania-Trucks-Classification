@@ -73,16 +73,17 @@ def plot_confusion_matrix(y_true, y_pred, classes,normalize=False,title=None,cma
     fig.tight_layout()
     return ax
 
-def ajustaSVM(dataset_train,labels_train, ficherosvm=None, ficherosave=None):
-    if ficherosvm==None:
-        clasificador_svm = svm.SVC(gamma=0.01, C=0.95, verbose=True)
-        clasificador_svm.fit(dataset_train,labels_train)
-        if ficherosave!=None:
-            joblib.dump(clasificador_svm,ficherosave)
-        return clasificador_svm
-    else:
-        clasificador_svm = joblib.load(ficherosvm)
-        return clasificador_svm
+def ajustaSVM(dataset_train,labels_train):
+    '''
+    @brief Función que ajusta un modelo SVM
+    @param dataset_train Conjunto de datos de entrenamiento
+    @para labels_train Etiquetas del conjunto de entrenamiento
+    @return Devuelve el clasificador SVM ajustado
+    '''
+    # SVM de parámetros gamma=0.1 y C=0.95
+    clasificador_svm = svm.SVC(gamma=0.01, C=0.95, verbose=True)
+    clasificador_svm.fit(dataset_train,labels_train)
+    return clasificador_svm
 
 def ajustaRandomForest(dataset_train, labels_train):
     # Resultado del GridSearch
