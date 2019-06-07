@@ -158,7 +158,7 @@ Para el caso de $E_{test}$, cuando afirmamos que $E_{test}$ es un estimador de $
 
 $$E_{out}(h) \leq E_{test}(h) + \sqrt{\frac{1}{2N} \log \frac{2}{\delta}}$$
 
-En cada caso, utilizaremos la que más convenga. En los modelos en los que la dimensión de VC sea excesivamente elevada (debido a la complejidad, como las redes y los basados en árboles) utilizaremos exclusivamente la que involucra a $E_{test}$.
+En cada caso, utilizaremos la que más convenga. En los modelos en los que la dimensión de VC sea excesivamente elevada (debido a la complejidad, como las redes y los basados en árboles, incluso infinita) utilizaremos exclusivamente la que involucra a $E_{test}$.
 
 \subsection{Gradiente descendente estocástico}
 
@@ -197,13 +197,14 @@ y la siguiente curva ROC:
 
 Como se puede ver, los resultados son altamente satisfactorios. Además, con un problema que posee un volumen de datos tan grande, el tiempo de computación es un factor a tener en cuenta, y, en efecto, SGD apenas tarda un minuto en concluir. 
 
-Como se trata de un modelo lineal, dimensión de VC = 3, por lo que la cota de generalización a través de $E_{in}$ vale:
-$$E_{out} \leq $$
+Como se trata de un modelo lineal, dimensión de VC = 3, por lo que la cota de generalización a través de $E_{in} = 0.02063704531572863$ vale:
+$$E_{out} \leq 0.08529664599521261$$
 
-Con respecto a la segunda forma de calcularlo (con $E_{test}$),
+Con respecto a la segunda forma de calcularlo (con $E_{test}=0.02895000000000003$),
 
-$$E_{out} \leq $$
+$$E_{out} \leq 0.033845879766038436$$
 
+Nos quedamos con la segunda por ser más pequeña.
 \subsubsection{AdaBoost}
 
 El segundo modelo empleado es la implementación de Boosting conocida como AdaBoost con un parámetro de estimadores de 100. 
@@ -240,6 +241,9 @@ Podemos visualizar asimismo la curva ROC.
 	\label{fig:roc-ab}
 \end{figure}
 
+Respecto de la cota de generalización, tiendo un $E_{in}= 0.013333506608273038$ y un $E_{test} = 0.03059999999999996$, obtenemos que
+
+$$E_{out} \leq 0.035495879766038366$$
 
 
 \subsubsection{Red Neuronal (Perceptrón multicapa)}
@@ -278,6 +282,11 @@ Veamos la curva ROC:
 	\label{fig:roc-pmc}
 \end{figure}
 
+Respecto de la cota de generalización, tiendo un $E_{in}=0.0010006627766442344 $ y un $E_{test} =0.012399999999999967 $, obtenemos que
+
+$$E_{out} \leq 0.01729587976603837$$
+
+
 \subsubsection{Random Forest}
 
 El cuarto modelo empleado ha sido un Random Forest. Los parámetros del modelo han sido obtenidos a través de un GridSearch para obtener el mejor número de estimadores o clasificadores simples. En nuestro caso el mejor valor obtenido es con 189 estimadores. Los resultados han sido:
@@ -314,6 +323,10 @@ Veamos la curva ROC:
 	\label{fig:roc-rf}
 \end{figure}
 
+En cuanto al error de generalización, dado que $E_in=0, E_{test} = 0.013566666666666616,$ obtenemos la siguiente cota:
+
+$$E_{out} \leq 0.018462546432705017$$
+
 \subsubsection{SVM}
 
 El último modelo empleado ha sido SVM. Los parámetros del modelo han sido obtenidos a través de un GridSearch para obtener los mejores valores de gamma y C tal y como se indica en el PDF. En nuestro caso el mejor valor obtenido de gamma ha sido 0.01 y C 0.95 con el kernel RBF. Los resultados han sido:
@@ -349,6 +362,10 @@ Veamos la curva ROC:
 	\caption{Curva ROC para SVM} 
 	\label{fig:roc-svm}
 \end{figure}
+
+Respecto de la cota de generalización, tiendo un $E_{in}= 0.011306189814032641$ y un $E_{test} = 0.023349999999999982$, obtenemos que
+
+$$E_{out} \leq 0.028245879766038384$$
 
 \newpage
 \section{Bibliografía}
