@@ -111,7 +111,6 @@ def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_t
     pred = clasificador.predict(dataset_test)
     score = clasificador.score(dataset_test, labels_test)
     pred_in = clasificador.predict(dataset_train)
-    score_in = clasificador.predict(dataset_train, labels_train)
     print("Con el fichero de TEST")
     print("El score es: " + str(score))
     print("Precision: " + str(metrics.precision_score(labels_test,pred,average='weighted')))
