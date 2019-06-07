@@ -10,7 +10,8 @@
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Curva de aprendizaje para AdaBoost\relax }}{13}{figure.caption.16}
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Matriz de confusi\IeC {\'o}n para Perceptr\IeC {\'o}n Multicapa\relax }}{14}{figure.caption.18}
 \contentsline {figure}{\numberline {3.8}{\ignorespaces Curva ROC para Perceptr\IeC {\'o}n Multicapa\relax }}{15}{figure.caption.19}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Matriz de confusi\IeC {\'o}n para Random Forest\relax }}{16}{figure.caption.21}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Curva ROC para Random Forest\relax }}{17}{figure.caption.22}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Matriz de confusi\IeC {\'o}n para SVM\relax }}{18}{figure.caption.24}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Curva ROC para SVM\relax }}{18}{figure.caption.25}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Curva de aprendizaje para Perceptr\IeC {\'o}n Multicapa\relax }}{16}{figure.caption.20}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Matriz de confusi\IeC {\'o}n para Random Forest\relax }}{17}{figure.caption.22}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Curva ROC para Random Forest\relax }}{17}{figure.caption.23}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Matriz de confusi\IeC {\'o}n para SVM\relax }}{18}{figure.caption.25}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Curva ROC para SVM\relax }}{19}{figure.caption.26}

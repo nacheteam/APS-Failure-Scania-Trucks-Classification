@@ -308,6 +308,16 @@ Respecto de la cota de generalización, tiendo un $E_{in}=0.0010006627766442344 
 
 $$E_{out} \leq 0.01729587976603837$$
 
+Por último vamos a ver la curva de aprendizaje del modelo:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{aprendizaje-red-neuronal.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva de aprendizaje para Perceptrón Multicapa} 
+	\label{fig:aprendizaje-perceptron-multicapa}
+\end{figure}
+
+La curva de aprendizaje de Perceptrón multicapa es tremendamente satisfactoria. En primer lugar se ve que el descenso al principio al aumentar el número de datos de $E_{out}$ es muy significativo apreciándose la tendencia del mismo a disminuir. Además podemos ver que una vez que consideramos el conjunto de entrenamiento completo obtenemos un error dentro de la muestra de 0 acompañado de una reducción del error fuera de la muestra.
 
 \subsubsection{Random Forest}
 
