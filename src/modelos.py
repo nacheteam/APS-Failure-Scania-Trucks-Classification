@@ -178,12 +178,12 @@ def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_t
     print("Precision: " + str(metrics.precision_score(labels_test,pred,average='weighted')))
     print("Recall: " + str(metrics.recall_score(labels_test,pred,average='weighted')))
     print("F1 Score: " + str(metrics.f1_score(labels_test,pred,average="weighted")))
-    print("#####################################################################")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     # Calculamos la estimación de eout y ein
     ein = 1-metrics.accuracy_score(labels_train, pred_in)
     etest = 1-metrics.accuracy_score(labels_test, pred)
     print("Ein: " + str(ein))
-    print("Etest: " + str(etest) + "\n\n")
+    print("Etest: " + str(etest) + "\n")
 
     # Si el modelo es SGD o SVM entonces calculamos las cotas
     if nombre == "SGD":
@@ -217,24 +217,44 @@ def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_t
 dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtenerDatos(imputacion="mediana")
 
 # Random forest
+print("########################################################################")
+print("Ajustamos el modelo Random Forest")
+print("########################################################################\n")
 clf = ajustaRandomForest(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train,nombre="Random Forest")
+print("\n\n")
 
 # Gradiente descendente estocástico
+print("########################################################################")
+print("Ajustamos el modelo Gradiente Descendente Estocastico")
+print("########################################################################\n")
 clf = ajustaSGD(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train, nombre = "SGD")
+print("\n\n")
 
 # SVM
+print("########################################################################")
+print("Ajustamos el modelo SVM")
+print("########################################################################\n")
 clf = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana_normalizacion.txt")
-obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train nombre="SVM")
+obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train, nombre="SVM")
+print("\n\n")
 
 # AdaBoost
+print("########################################################################")
+print("Ajustamos el modelo AdaBoost")
+print("########################################################################\n")
 clf = ajustaBoosting(dataset_train, labels_train)
-obtenScores(clf,dataset_test,labels_test, dataset_train, labels_train nombre="AdaBoost")
+obtenScores(clf,dataset_test,labels_test, dataset_train, labels_train, nombre="AdaBoost")
+print("\n\n")
 
 # Red Neuronal
+print("########################################################################")
+print("Ajustamos el modelo Perceptrón Multicapa")
+print("########################################################################\n")
 clf = ajustaRedNeuronal(dataset_train, labels_train)
-obtenScores(clf, dataset_test, labels_test, dataset_train, labels_train nombre="Red Neuronal")
+obtenScores(clf, dataset_test, labels_test, dataset_train, labels_train, nombre="Red Neuronal")
+print("\n\n")
 
 
 '''
