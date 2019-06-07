@@ -107,6 +107,9 @@ def  ajustaRedNeuronal(dataset_train, labels_train):
     clf.fit(dataset_train, labels_train)
     return clf
 
+def cota_eout(etest,N,tol):
+    return etest + sqrt((1/(2*N))*np.log(2/tol))
+
 def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_train, nombre="SGD"):
     pred = clasificador.predict(dataset_test)
     score = clasificador.score(dataset_test, labels_test)
@@ -117,8 +120,11 @@ def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_t
     print("Recall: " + str(metrics.recall_score(labels_test,pred,average='weighted')))
     print("F1 Score: " + str(metrics.f1_score(labels_test,pred,average="weighted")))
     print("#####################################################################")
-    print("Ein: " + str(1-metrics.accuracy_score(labels_train, pred_in)))
-    print("Etest: " + str(1-metrics.accuracy_score(labels_test, pred)) + "\n\n")
+    ein = 1-metrics.accuracy_score(labels_train, pred_in)
+    etest = 1-metrics.accuracy_score(labels_test, pred)
+    print("Ein: " + str(ein))
+    print("Etest: " + str(etest) + "\n\n")
+    print("Cota Eout (con test): " + str(cota_eout(etest,len(dataset_train),0.05)))
     print("Matriz de confusión")
     nombres = ["neg","pos"]
     plot_confusion_matrix(labels_test, pred, classes=nombres,normalize = False,title='Matriz de confusión para ' + nombre)
