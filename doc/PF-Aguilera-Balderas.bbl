@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{lfd}
+Yaser~S. Abu-Mostafa.
+\newblock {\em Learning from Data}.
+\newblock AMLBook, 2012.
+
 \bibitem{fa1}
 R.B. Cattell.
 \newblock {Factor analysis}.
