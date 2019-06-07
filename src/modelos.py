@@ -17,20 +17,19 @@ from sklearn.neural_network import MLPClassifier
 from sklearn import metrics
 from sklearn import preprocessing
 
+# Ponemos la semilla a 123456789
 np.random.seed(123456789)
 
-#
-# plot_confusion_matrix
-# @brief: Función encargada de computar y preparar la impresión de la matriz de confusión. Se puede extraer los resultados normalizados o sin normalizar. Basada en un ejemplo de scikit-learn
-# @param: y_true. Etiquetas verdaderas
-# @param: y_pred. Etiquetas predichas
-# @param: classes. Distintas clases del problema (vector)
-# @param: normalize. Booleano que indica si se normalizan los resultados o no
-# @param: title. Título del gráfico
-# @param: cmap. Paleta de colores para el gráfico
-#
-
 def plot_confusion_matrix(y_true, y_pred, classes,normalize=False,title=None,cmap=plt.cm.Blues):
+    '''
+    @brief Función encargada de computar y preparar la impresión de la matriz de confusión. Se puede extraer los resultados normalizados o sin normalizar. Basada en un ejemplo de scikit-learn
+    @param y_true Etiquetas verdaderas
+    @param y_pred Etiquetas predichas
+    @param classes Distintas clases del problema (vector)
+    @param normalize Booleano que indica si se normalizan los resultados o no
+    @param title Título del gráfico
+    @param cmap Paleta de colores para el gráfico
+    '''
     if not title:
         if normalize:
             title = 'Matriz de confusión normalizada'
@@ -52,7 +51,6 @@ def plot_confusion_matrix(y_true, y_pred, classes,normalize=False,title=None,cma
     fig, ax = plt.subplots()
     im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
     ax.figure.colorbar(im, ax=ax)
-    # We want to show all ticks...
     ax.set(xticks=np.arange(cm.shape[1]),
            yticks=np.arange(cm.shape[0]),
            xticklabels=classes, yticklabels=classes,
