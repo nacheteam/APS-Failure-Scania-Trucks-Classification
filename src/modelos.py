@@ -107,13 +107,19 @@ def  ajustaRedNeuronal(dataset_train, labels_train):
     clf.fit(dataset_train, labels_train)
     return clf
 
-def obtenScores(clasificador, dataset_test, labels_test, nombre="SGD"):
+def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_train, nombre="SGD"):
     pred = clasificador.predict(dataset_test)
     score = clasificador.score(dataset_test, labels_test)
+    pred_in = clasificador.predict(dataset_train)
+    score_in = clasificador.predict(dataset_train, labels_train)
+    print("Con el fichero de TEST")
     print("El score es: " + str(score))
     print("Precision: " + str(metrics.precision_score(labels_test,pred,average='weighted')))
     print("Recall: " + str(metrics.recall_score(labels_test,pred,average='weighted')))
     print("F1 Score: " + str(metrics.f1_score(labels_test,pred,average="weighted")))
+    print("#####################################################################")
+    print("Ein: " + str(1-clasificador.accuracy_score(labels_train, pred_in, average="weighted" + "\n\n")))
+    print("Eout: " + str(1-clasificador.accuracy_score(labels_test, pred, average="weighted" + "\n\n")))
     print("Matriz de confusión")
     nombres = ["neg","pos"]
     plot_confusion_matrix(labels_test, pred, classes=nombres,normalize = False,title='Matriz de confusión para ' + nombre)
@@ -137,23 +143,23 @@ dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtene
 
 # Random forest
 clf = ajustaRandomForest(dataset_train, labels_train)
-obtenScores(clf,dataset_test, labels_test,nombre="Random Forest")
+obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train,nombre="Random Forest")
 '''
 # Gradiente descendente estocástico
 clf = ajustaSGD(dataset_train, labels_train)
-obtenScores(clf,dataset_test, labels_test, nombre = "SGD")
+obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train, nombre = "SGD")
 
 # SVM
 clf = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana_normalizacion.txt")
-obtenScores(clf,dataset_test, labels_test, nombre="SVM")
+obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train nombre="SVM")
 
 # AdaBoost
 clf = ajustaBoosting(dataset_train, labels_train)
-obtenScores(clf,dataset_test,labels_test, nombre="AdaBoost")
+obtenScores(clf,dataset_test,labels_test, dataset_train, labels_train nombre="AdaBoost")
 
 # Red Neuronal
 clf = ajustaRedNeuronal(dataset_train, labels_train)
-obtenScores(clf, dataset_test, labels_test, nombre="Red Neuronal")
+obtenScores(clf, dataset_test, labels_test, dataset_train, labels_train nombre="Red Neuronal")
 
 
 # Grid search para Random Forest
