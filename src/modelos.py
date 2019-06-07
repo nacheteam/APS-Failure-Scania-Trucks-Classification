@@ -7,6 +7,7 @@ from sklearn.externals import joblib
 from sklearn import metrics
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
 # Modelos
 from sklearn import svm
 from sklearn.ensemble import AdaBoostClassifier
@@ -73,7 +74,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,normalize=False,title=None,cma
     fig.tight_layout()
     return ax
 
-def ajustaSVM(dataset_train,labels_train):
+def ajustaSVM(dataset_train,labels_train, verbose=True):
     '''
     @brief Función que ajusta un modelo SVM
     @param dataset_train Conjunto de datos de entrenamiento
@@ -81,11 +82,11 @@ def ajustaSVM(dataset_train,labels_train):
     @return Devuelve el clasificador SVM ajustado
     '''
     # SVM de parámetros gamma=0.1 y C=0.95
-    clasificador_svm = svm.SVC(gamma=0.01, C=0.95, verbose=True)
+    clasificador_svm = svm.SVC(gamma=0.01, C=0.95, verbose=verbose)
     clasificador_svm.fit(dataset_train,labels_train)
     return clasificador_svm
 
-def ajustaRandomForest(dataset_train, labels_train):
+def ajustaRandomForest(dataset_train, labels_train, verbose=True):
     '''
     @brief Función que ajusta un modelo Random Forest
     @param dataset_train Conjunto de datos de entrenamiento
@@ -93,11 +94,11 @@ def ajustaRandomForest(dataset_train, labels_train):
     @return Devuelve el clasificador Random Forest ajustado
     '''
     # Parámetros obtenidos por un GridSearch
-    clf = RandomForestClassifier(n_estimators=189, random_state=123456789, verbose=True)
+    clf = RandomForestClassifier(n_estimators=189, random_state=123456789, verbose=verbose)
     clf.fit(dataset_train, labels_train)
     return clf
 
-def ajustaSGD(dataset_train, labels_train):
+def ajustaSGD(dataset_train, labels_train, verbose=True):
     '''
     @brief Función que ajusta un modelo Gradiente Descendente Estocástico
     @param dataset_train Conjunto de datos de entrenamiento
@@ -105,7 +106,7 @@ def ajustaSGD(dataset_train, labels_train):
     @return Devuelve el clasificador Gradiente Descendente Estocástico ajustado
     '''
     # Ajustamos el SGD con 10.000 iteraciones como máximo y una tolerancia de 10^-6
-    clf = linear_model.SGDClassifier(max_iter=10000, tol=1e-6, verbose=True)
+    clf = linear_model.SGDClassifier(max_iter=10000, tol=1e-6, verbose=verbose)
     clf.fit(dataset_train, labels_train)
     return clf
 
@@ -121,7 +122,7 @@ def ajustaBoosting(dataset_train, labels_train):
     clf.fit(dataset_train,labels_train)
     return clf
 
-def ajustaRedNeuronal(dataset_train, labels_train):
+def ajustaRedNeuronal(dataset_train, labels_train, verbose=True):
     '''
     @brief Función que ajusta un modelo Perceptrón multicapa
     @param dataset_train Conjunto de datos de entrenamiento
@@ -129,7 +130,7 @@ def ajustaRedNeuronal(dataset_train, labels_train):
     @return Devuelve el clasificador Perceptrón multicapa ajustado
     '''
     # Perceptrón multicapa con 3 capas ocultas y 100 unidades por capa. Máximo de iteraciones 10.000
-    clf = MLPClassifier(hidden_layer_sizes=(100,100,100), max_iter=10000, random_state=123456789, verbose=True)
+    clf = MLPClassifier(hidden_layer_sizes=(100,100,100), max_iter=10000, random_state=123456789, verbose=verbose)
     clf.fit(dataset_train, labels_train)
     return clf
 
@@ -212,6 +213,52 @@ def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_t
     plt.xlabel('False Positive Rate')
     plt.show()
 
+def curva_aprendizaje(modelo, data_train, labels_train, data_test, labels_test, n_cortes=10):
+    eins = []
+    eouts=[]
+    for i in range(1,n_cortes+1):
+        print("Slice " + str(i) + "/" + str(n_cortes))
+        slice_train=[]
+        slice_labels_train=[]
+        N=0
+        if i<n_cortes:
+            N=int(i*(len(data_train)/n_cortes))
+            train_size = i/n_cortes
+            slice_train, _, slice_labels_train, _ = train_test_split(data_train, labels_train, train_size=train_size, test_size=1-train_size, random_state=123456789, stratify=labels_train)
+        else:
+            N=len(data_train)
+            slice_train=data_train
+            slice_labels_train=labels_train
+
+        clasificador=None
+        if modelo=="SVM":
+            clasificador=ajustaSVM(slice_train, slice_labels_train, verbose=False)
+        elif modelo=="SGD":
+            clasificador=ajustaSGD(slice_train, slice_labels_train, verbose=False)
+        elif modelo=="Random Forest":
+            clasificador=ajustaRandomForest(slice_train, slice_labels_train, verbose=False)
+        elif modelo=="Red Neuronal":
+            clasificador=ajustaRedNeuronal(slice_train, slice_labels_train, verbose=False)
+        elif modelo=="AdaBoost":
+            clasificador=ajustaBoosting(slice_train, slice_labels_train)
+
+        pred_in = clasificador.predict(slice_train)
+        pred_out = clasificador.predict(data_test)
+
+        ein = 1-metrics.accuracy_score(slice_labels_train, pred_in)
+        etest = 1-metrics.accuracy_score(labels_test, pred_out)
+        eout = cota_eout_test(etest,N,0.05)
+        eins.append(-ein)
+        eouts.append(eout)
+
+    plt.plot(list(range(n_cortes)),eouts, c="blue", label="Eout")
+    plt.plot(list(range(n_cortes)),eins, c="red", label="Ein")
+    plt.legend()
+    plt.title("Curva de aprendizaje de " + modelo)
+    plt.ylabel('Error')
+    plt.xlabel('Número de datos')
+    plt.show()
+
 
 # Leemos los conjuntos de datos
 dataset_train, labels_train, dataset_test, labels_test = preprocesamiento.obtenerDatos(imputacion="mediana")
@@ -258,6 +305,33 @@ print("Ajustamos el modelo Perceptrón Multicapa")
 print("########################################################################\n")
 clf = ajustaRedNeuronal(dataset_train, labels_train)
 obtenScores(clf, dataset_test, labels_test, dataset_train, labels_train, nombre="Red Neuronal")
+input("Presione ENTER para continuar...")
+print("\n\n")
+
+print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n")
+
+print("Curva de aprendizaje de Random Forest")
+curva_aprendizaje("Random Forest", dataset_train, labels_train, dataset_test, labels_test)
+input("Presione ENTER para continuar...")
+print("\n\n")
+
+print("Curva de aprendizaje de Red Neuronal")
+curva_aprendizaje("Red Neuronal", dataset_train, labels_train, dataset_test, labels_test)
+input("Presione ENTER para continuar...")
+print("\n\n")
+
+print("Curva de aprendizaje de SVM")
+curva_aprendizaje("SVM", dataset_train, labels_train, dataset_test, labels_test)
+input("Presione ENTER para continuar...")
+print("\n\n")
+
+print("Curva de aprendizaje de SGD")
+curva_aprendizaje("SGD", dataset_train, labels_train, dataset_test, labels_test)
+input("Presione ENTER para continuar...")
+print("\n\n")
+
+print("Curva de aprendizaje de AdaBoost")
+curva_aprendizaje("AdaBoost", dataset_train, labels_train, dataset_test, labels_test)
 input("Presione ENTER para continuar...")
 print("\n\n")
 
