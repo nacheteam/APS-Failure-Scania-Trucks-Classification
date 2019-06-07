@@ -56,7 +56,7 @@ Nos encontramos ante un problema de clasificación binaria (clase positiva y neg
 
 \section{Preprocesamiento}
 
-\subsection{Análisis explotario y valores perdidos}
+\subsection{Análisis exploratorio y valores perdidos}
 
 Nos encontramos ante un problema que tiene una gran cantidad de datos. En principio, este hecho es una ventaja, dado que la capacidad de generalización aumenta enormemente. Sin embargo, uno de los grandes retos ha sido, por un lado, el gran desbalanceo entre las clases y, por otro, la gran cantidad de valores perdidos e inconsistencias en los datos. Nos ocupamos de esto segundo en primer lugar. El análisis exploratorio de los datos nos hizo llegar a la conclusión de que, de entre las pocas instancias que forman parte de la clase positiva (esto es, con un fallo en el sistema APS), los valores de las variables estaban extraviados o, si no era así, más parecían outliers que otra cosa. En seguida nos dimos cuenta de que, desde un punto de vista físico tiene sentido, dado que la avería en un componente puede hacer que el comportamiento en los demás sea errático y, como consecuencia, puede generar observaciones de lo más variopintas. No obstante, nos dedicamos a eliminar los valores perdidos y le dimos validez total a los datos de los que disponemos. 
 
@@ -97,7 +97,7 @@ Como se puede apreciar, hemos perdido la localidad de las clases, aunque, como s
 
 \subsubsection{Selección de características}
 
-Tras la eliminación de características por poseer demasiados valores perdidos, poseemos 164. No nos parece un número adecuado para utilizar PCA (más recomendado para cuando hay muchas más variables, ya que el sacrificio de la interpretabilidad es menos costoso) así que nos decantamos por otras técnicas de estadística multivariante, como es análisis factorial (\cite{ms},\cite{amsa},\cite{fa1}, \cite{fa2}). Análisis factorial sí nos ayuda a darle interpretabilidad al modelo y a encontrar qué características son las más determinantes. Reducimos así de 164 a 151. Sin embargo, los resultados en los modelos nos harán comprobar que, a pesar de mejorar el accuracy, se empeora la clasificación de las instancias de la clase positiva, como se puede ver en la siguiente comparación entre matrices de confunsión para Random Forest:
+Tras la eliminación de características por poseer demasiados valores perdidos, poseemos 164. No nos parece un número adecuado para utilizar PCA (más recomendado para cuando hay muchas más variables, ya que el sacrificio de la interpretabilidad es menos costoso) así que nos decantamos por otras técnicas de estadística multivariante, como es análisis factorial (\cite{ms},\cite{amsa},\cite{fa1}, \cite{fa2}). Análisis factorial sí nos ayuda a darle interpretabilidad al modelo y a encontrar qué características son las más determinantes. Reducimos así de 164 a 151. Sin embargo, los resultados en los modelos nos harán comprobar que, a pesar de mejorar el accuracy, se empeora la clasificación de las instancias de la clase positiva, como se puede ver en la siguiente comparación entre matrices de confusión para Random Forest:
 
 \begin{table}[H]
 	\centering
@@ -368,7 +368,7 @@ Por último vamos a ver la curva de aprendizaje del modelo:
 	\label{fig:aprendizaje-random-forest}
 \end{figure}
 
-Como podemos obervar esta curva es la mejor que hemos obtenido en todo nuestro estudio. Como se puede apreciar el error dentro de la muestra permanece constante a 0 apreciándose además una disminución del error fuera de la muestra muy rápido conforme aumentamos el número de datos en el conjunto de entrenamiento.
+Como podemos observar esta curva es la mejor que hemos obtenido en todo nuestro estudio. Como se puede apreciar el error dentro de la muestra permanece constante a 0 apreciándose además una disminución del error fuera de la muestra muy rápido conforme aumentamos el número de datos en el conjunto de entrenamiento.
 
 \subsubsection{SVM}
 

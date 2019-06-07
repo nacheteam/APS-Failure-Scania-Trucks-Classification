@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {1}APS Failure Scania Trucks Classification}{4}{section.1}
 \contentsline {subsection}{\numberline {1.1}Introducci\IeC {\'o}n}{4}{subsection.1.1}
 \contentsline {section}{\numberline {2}Preprocesamiento}{4}{section.2}
-\contentsline {subsection}{\numberline {2.1}An\IeC {\'a}lisis explotario y valores perdidos}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.1}An\IeC {\'a}lisis exploratorio y valores perdidos}{4}{subsection.2.1}
 \contentsline {subsubsection}{\numberline {2.1.1}Desbalanceo de clases}{5}{subsubsection.2.1.1}
 \contentsline {subsubsection}{\numberline {2.1.2}Selecci\IeC {\'o}n de caracter\IeC {\'\i }sticas}{7}{subsubsection.2.1.2}
 \contentsline {subsubsection}{\numberline {2.1.3}Normalizaci\IeC {\'o}n}{8}{subsubsection.2.1.3}
