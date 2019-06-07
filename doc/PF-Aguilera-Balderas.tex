@@ -129,6 +129,37 @@ En el análisis exploratorio observamos que el rango de las variables es absolut
 
 \section{Modelos y clasificación}
 
+\subsection{Error de generalización y dimensión de VC}
+
+	
+Pueden calcularse dos cotas (\cite{lfd}). Trato primera la de $E_{in}$. 
+Sea $h \in H$, fija, $f(x)$ la función objetivo (desconocida), $D$ el conjunto de entrenamiento de tamaño N. Podemos escribir la desigualdad de Hoeffding como sigue:
+
+$$P(D: |E_{out}(h)-E_{in}(h)|> \epsilon) \leq 2 e^{-2\epsilon^2N} \hspace{0.5cm} \forall \epsilon > 0$$
+
+Llamando $\delta = 2e^{-2\epsilon^2 N}$, tenemos
+
+$$P(D: |E_{out}(h)-E_{in}(h)|> \epsilon) \leq \delta \Rightarrow P(D: |E_{out}(h)-E_{in}(h)| < \epsilon) \geq 1 - \delta$$
+
+Podemos escribir, por tanto, la siguiente desigualdad:
+
+$$E_{out}(h) \leq E_{in}(h) + \sqrt{\frac{1}{2N} \log \frac{2}{\delta}}$$
+con probabilidad al menos $1-\delta$ en $D$.
+
+Considerando una clase de funciones finita, la expresión se convierte en 
+$$E_{out}(h) \leq E_{in}(h) + \sqrt{\frac{1}{2N} \log \frac{2|H|}{\delta}}$$
+
+Sin embargo, el tamaño de la clase de funciones ahora entra en juego y puede hacer menos útil la cota. Para poder garantizar una buena cota, surge la teoría de la generalización y la Dimensión de Vapnik-Chervonenkis (VC). La cota a utilizar es la siguiente:
+
+$$E_{out}(h) \leq E_{in}(h) + \sqrt{\frac{8}{N} \log \frac{4((2N)^{d {VC}}+1)}{\delta}}$$
+
+
+Para el caso de $E_{test}$, cuando afirmamos que $E_{test}$ es un estimador de $E_{out}$, estamos afirmando que $E_{test}$ generaliza muy bien $E_{out}$. En el caso anterior, intentábamos buscar la función que minimizaba $E_{in}$. Ahora, sin embargo, ya tenemos una función fija y queremos simplemente estimar el error. Por tanto, la desigualdad de Hoeffding con una hipótesis es suficiente para el caso de conjunto de test. 
+
+$$E_{out}(h) \leq E_{test}(h) + \sqrt{\frac{1}{2N} \log \frac{2}{\delta}}$$
+
+En cada caso, utilizaremos la que más convenga. En los modelos en los que la dimensión de VC sea excesivamente elevada (debido a la complejidad, como las redes y los basados en árboles) utilizaremos exclusivamente la que involucra a $E_{test}$.
+
 \subsection{Gradiente descendente estocástico}
 
 
@@ -166,6 +197,13 @@ y la siguiente curva ROC:
 
 Como se puede ver, los resultados son altamente satisfactorios. Además, con un problema que posee un volumen de datos tan grande, el tiempo de computación es un factor a tener en cuenta, y, en efecto, SGD apenas tarda un minuto en concluir. 
 
+Como se trata de un modelo lineal, dimensión de VC = 3, por lo que la cota de generalización a través de $E_{in}$ vale:
+$$E_{out} \leq $$
+
+Con respecto a la segunda forma de calcularlo (con $E_{test}$),
+
+$$E_{out} \leq $$
+
 \subsubsection{AdaBoost}
 
 El segundo modelo empleado es la implementación de Boosting conocida como AdaBoost con un parámetro de estimadores de 100. 
@@ -201,6 +239,8 @@ Podemos visualizar asimismo la curva ROC.
 	\caption{Curva ROC para AdaBoost} 
 	\label{fig:roc-ab}
 \end{figure}
+
+
 
 \subsubsection{Red Neuronal (Perceptrón multicapa)}
 
@@ -274,7 +314,7 @@ Veamos la curva ROC:
 	\label{fig:roc-rf}
 \end{figure}
 
-\subsubsection{SMV}
+\subsubsection{SVM}
 
 El último modelo empleado ha sido SVM. Los parámetros del modelo han sido obtenidos a través de un GridSearch para obtener los mejores valores de gamma y C tal y como se indica en el PDF. En nuestro caso el mejor valor obtenido de gamma ha sido 0.01 y C 0.95 con el kernel RBF. Los resultados han sido:
 
