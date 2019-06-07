@@ -108,7 +108,7 @@ def  ajustaRedNeuronal(dataset_train, labels_train):
     return clf
 
 def cota_eout(etest,N,tol):
-    return etest + sqrt((1/(2*N))*np.log(2/tol))
+    return etest + np.sqrt((1/(2*N))*np.log(2/tol))
 
 def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_train, nombre="SGD"):
     pred = clasificador.predict(dataset_test)
