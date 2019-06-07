@@ -421,6 +421,20 @@ Por último vamos a ver la curva de aprendizaje del modelo:
 
 Esta curva de aprendizaje muestra una disminución lenta del error tanto fuera como dentro de la muestra a medida que añadimos datos al conjunto de entrenamiento. Como podemos ver el error fuera y dentro de la muestra siempre tienden a disminuir pero no lo suficiente como para que sea un algoritmo competitivo frente al resto empleados, sobre todo cuando consideramos Random Forest.
 
+\section{Conclusiones}
+
+A lo largo de nuestro estudio hemos comparado algoritmos lineales con no lineales entre los que hemos incluido Gradiente Descendente Estocástico, Support Vector Machines, Random Forest, Perceptrón Multicapa y AdaBoost. 
+
+En este estudio hemos desarrollado métricas y gráficas que nos arrojaban información de los modelos y, como se ha podido comprobar, el modelo que mejores resultados nos ha arrojado ha sido Random Forest. 
+
+El mayor de los retos al que nos enfrentábamos con este conjunto de datos era acertar el mayor número posible de positivos, es decir de fallos en los frenos de los camiones. El hecho de errar en un negativo no es tan importante como fallar al predecir un positivo pues esto puede producir una situación de riesgo para el conductor y la empresa.
+
+En este sentido con Random Forest hemos conseguido acertar 999 de las 1000 instancias del conjunto de test que tenían etiqueta positiva, por lo que podemos decir que hemos conseguido unos resultados tremendamente satisfactorios en el problema.
+
+Además hemos podido ver con la curva de aprendizaje lo bien que se ajustaba Random Forest para este problema debido a la complejidad de los datos. Cuando hemos podido analizar el conjunto de entrenamiento previamente al preprocesado de los datos nos dimos cuenta de que las instancias poseían valores muy erráticos, probablemente debido a los posibles fallos de los frenos. 
+
+Con todo esto podemos argumentar que las técnicas vistas en clase nos aportan las herramientas necesarias para la distinción de un modelo adecuado para un problema y su correspondiente justificación basada en los datos y resultados obtenidos.
+
 \newpage
 \section{Bibliografía}
 
