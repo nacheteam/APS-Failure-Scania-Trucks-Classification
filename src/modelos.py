@@ -173,7 +173,7 @@ def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_t
     pred_in = clasificador.predict(dataset_train)
 
     # Prints de resultados
-    print("Con el fichero de TEST")
+    print("\n\nCon el fichero de TEST")
     print("El score es: " + str(score))
     print("Precision: " + str(metrics.precision_score(labels_test,pred,average='weighted')))
     print("Recall: " + str(metrics.recall_score(labels_test,pred,average='weighted')))
@@ -222,6 +222,7 @@ print("Ajustamos el modelo Random Forest")
 print("########################################################################\n")
 clf = ajustaRandomForest(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train,nombre="Random Forest")
+input("Presione ENTER para continuar...")
 print("\n\n")
 
 # Gradiente descendente estocástico
@@ -230,6 +231,7 @@ print("Ajustamos el modelo Gradiente Descendente Estocastico")
 print("########################################################################\n")
 clf = ajustaSGD(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train, nombre = "SGD")
+input("Presione ENTER para continuar...")
 print("\n\n")
 
 # SVM
@@ -238,6 +240,7 @@ print("Ajustamos el modelo SVM")
 print("########################################################################\n")
 clf = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana_normalizacion.txt")
 obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train, nombre="SVM")
+input("Presione ENTER para continuar...")
 print("\n\n")
 
 # AdaBoost
@@ -246,6 +249,7 @@ print("Ajustamos el modelo AdaBoost")
 print("########################################################################\n")
 clf = ajustaBoosting(dataset_train, labels_train)
 obtenScores(clf,dataset_test,labels_test, dataset_train, labels_train, nombre="AdaBoost")
+input("Presione ENTER para continuar...")
 print("\n\n")
 
 # Red Neuronal
@@ -254,6 +258,7 @@ print("Ajustamos el modelo Perceptrón Multicapa")
 print("########################################################################\n")
 clf = ajustaRedNeuronal(dataset_train, labels_train)
 obtenScores(clf, dataset_test, labels_test, dataset_train, labels_train, nombre="Red Neuronal")
+input("Presione ENTER para continuar...")
 print("\n\n")
 
 
