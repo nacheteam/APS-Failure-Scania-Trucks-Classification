@@ -410,6 +410,17 @@ Respecto de la cota de generalización, tiendo un $E_{in}= 0.011306189814032641$
 
 $$E_{out} \leq 0.028245879766038384$$
 
+Por último vamos a ver la curva de aprendizaje del modelo:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{aprendizaje-SVM.png}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva de aprendizaje para SVM} 
+	\label{fig:aprendizaje-svm}
+\end{figure}
+
+Esta curva de aprendizaje muestra una disminución lenta del error tanto fuera como dentro de la muestra a medida que añadimos datos al conjunto de entrenamiento. Como podemos ver el error fuera y dentro de la muestra siempre tienden a disminuir pero no lo suficiente como para que sea un algoritmo competitivo frente al resto empleados, sobre todo cuando consideramos Random Forest.
+
 \newpage
 \section{Bibliografía}
 
