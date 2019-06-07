@@ -188,8 +188,6 @@ def obtenScores(clasificador, dataset_test, labels_test, dataset_train, labels_t
     # Si el modelo es SGD o SVM entonces calculamos las cotas
     if nombre == "SGD":
         print("Cota Eout (con Ein): " + str(cota_eout_ein(ein,len(dataset_train),0.05,3)))
-    elif nombre == "SVM":
-        print("Cota Eout (con Ein): " + str(cota_eout_ein(ein,len(dataset_train),0.05,len(dataset_train[0]))))
     print("Cota Eout (con Etest): " + str(cota_eout_test(etest,len(dataset_train),0.05)))
     print("Matriz de confusión")
 
@@ -238,7 +236,7 @@ print("\n\n")
 print("########################################################################")
 print("Ajustamos el modelo SVM")
 print("########################################################################\n")
-clf = ajustaSVM(dataset_train, labels_train, ficherosave="svm_mediana_normalizacion.txt")
+clf = ajustaSVM(dataset_train, labels_train)
 obtenScores(clf,dataset_test, labels_test, dataset_train, labels_train, nombre="SVM")
 input("Presione ENTER para continuar...")
 print("\n\n")

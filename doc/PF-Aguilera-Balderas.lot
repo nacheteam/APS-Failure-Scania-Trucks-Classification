@@ -1,8 +1,8 @@
 \babel@toc {spanish}{}
 \contentsline {table}{\numberline {2.1}{\ignorespaces Matriz de confusi\IeC {\'o}n sin FA\relax }}{7}{table.caption.7}
 \contentsline {table}{\numberline {2.2}{\ignorespaces Matriz de confusi\IeC {\'o}n con FA\relax }}{8}{table.caption.8}
-\contentsline {table}{\numberline {3.1}{\ignorespaces Resumen de las medidas obtenidas con SGD\relax }}{8}{table.caption.9}
-\contentsline {table}{\numberline {3.2}{\ignorespaces Resumen de las medidas obtenidas con AdaBoost\relax }}{10}{table.caption.12}
-\contentsline {table}{\numberline {3.3}{\ignorespaces Resumen de las medidas obtenidas con Perceptr\IeC {\'o}n Multicapa\relax }}{11}{table.caption.15}
-\contentsline {table}{\numberline {3.4}{\ignorespaces Resumen de las medidas obtenidas con Random Forest\relax }}{13}{table.caption.18}
-\contentsline {table}{\numberline {3.5}{\ignorespaces Resumen de las medidas obtenidas con SVM\relax }}{14}{table.caption.21}
+\contentsline {table}{\numberline {3.1}{\ignorespaces Resumen de las medidas obtenidas con SGD\relax }}{9}{table.caption.9}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Resumen de las medidas obtenidas con AdaBoost\relax }}{11}{table.caption.12}
+\contentsline {table}{\numberline {3.3}{\ignorespaces Resumen de las medidas obtenidas con Perceptr\IeC {\'o}n Multicapa\relax }}{13}{table.caption.15}
+\contentsline {table}{\numberline {3.4}{\ignorespaces Resumen de las medidas obtenidas con Random Forest\relax }}{14}{table.caption.18}
+\contentsline {table}{\numberline {3.5}{\ignorespaces Resumen de las medidas obtenidas con SVM\relax }}{16}{table.caption.21}

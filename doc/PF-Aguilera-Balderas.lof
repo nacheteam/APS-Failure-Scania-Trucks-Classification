@@ -2,13 +2,13 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Representaci\IeC {\'o}n de las instancias tras la imputaci\IeC {\'o}n de VP con la mediana\relax }}{5}{figure.caption.4}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Matriz de confusi\IeC {\'o}n generada por SVM /RF/SGD/Red Neuronal hasta el momento\relax }}{6}{figure.caption.5}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Disposici\IeC {\'o}n del dataset tras SMOTE\relax }}{7}{figure.caption.6}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Matriz de confusi\IeC {\'o}n para SGD\relax }}{9}{figure.caption.10}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Curva ROC para SGD\relax }}{9}{figure.caption.11}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Matriz de confusi\IeC {\'o}n para AdaBoost\relax }}{10}{figure.caption.13}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Curva ROC para AdaBoost\relax }}{11}{figure.caption.14}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de confusi\IeC {\'o}n para Perceptr\IeC {\'o}n Multicapa\relax }}{12}{figure.caption.16}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Curva ROC para Perceptr\IeC {\'o}n Multicapa\relax }}{12}{figure.caption.17}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Matriz de confusi\IeC {\'o}n para Random Forest\relax }}{13}{figure.caption.19}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Curva ROC para Random Forest\relax }}{14}{figure.caption.20}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Matriz de confusi\IeC {\'o}n para SVM\relax }}{15}{figure.caption.22}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Curva ROC para SVM\relax }}{15}{figure.caption.23}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Matriz de confusi\IeC {\'o}n para SGD\relax }}{10}{figure.caption.10}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Curva ROC para SGD\relax }}{10}{figure.caption.11}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Matriz de confusi\IeC {\'o}n para AdaBoost\relax }}{11}{figure.caption.13}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Curva ROC para AdaBoost\relax }}{12}{figure.caption.14}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de confusi\IeC {\'o}n para Perceptr\IeC {\'o}n Multicapa\relax }}{13}{figure.caption.16}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Curva ROC para Perceptr\IeC {\'o}n Multicapa\relax }}{14}{figure.caption.17}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Matriz de confusi\IeC {\'o}n para Random Forest\relax }}{15}{figure.caption.19}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Curva ROC para Random Forest\relax }}{15}{figure.caption.20}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Matriz de confusi\IeC {\'o}n para SVM\relax }}{16}{figure.caption.22}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Curva ROC para SVM\relax }}{17}{figure.caption.23}
