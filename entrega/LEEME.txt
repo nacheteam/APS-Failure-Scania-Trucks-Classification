@@ -1,0 +1,7 @@
+En esta carpeta se encuentra:
+
+1. La memoria en formato pdf.
+2. Un script shell de instalación de la libreria de preprocesamiento para valores
+perdidos imblearn.
+3. La carpeta codigo que contiene el codigo del proyecto así como los datos
+del repositorio UCI que hemos empleado.
