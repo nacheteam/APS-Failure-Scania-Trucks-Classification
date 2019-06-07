@@ -13,5 +13,6 @@
 \contentsline {figure}{\numberline {3.9}{\ignorespaces Curva de aprendizaje para Perceptr\IeC {\'o}n Multicapa\relax }}{16}{figure.caption.20}
 \contentsline {figure}{\numberline {3.10}{\ignorespaces Matriz de confusi\IeC {\'o}n para Random Forest\relax }}{17}{figure.caption.22}
 \contentsline {figure}{\numberline {3.11}{\ignorespaces Curva ROC para Random Forest\relax }}{17}{figure.caption.23}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Matriz de confusi\IeC {\'o}n para SVM\relax }}{18}{figure.caption.25}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Curva ROC para SVM\relax }}{19}{figure.caption.26}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Curva de aprendizaje para Random Forest\relax }}{18}{figure.caption.24}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Matriz de confusi\IeC {\'o}n para SVM\relax }}{19}{figure.caption.26}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Curva ROC para SVM\relax }}{20}{figure.caption.27}

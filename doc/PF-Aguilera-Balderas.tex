@@ -359,6 +359,17 @@ En cuanto al error de generalización, dado que $E_in=0, E_{test} = 0.0135666666
 
 $$E_{out} \leq 0.018462546432705017$$
 
+Por último vamos a ver la curva de aprendizaje del modelo:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{aprendizaje-random-forest.jpg}  %el parámetro scale permite agrandar o achicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Curva de aprendizaje para Random Forest} 
+	\label{fig:aprendizaje-random-forest}
+\end{figure}
+
+Como podemos obervar esta curva es la mejor que hemos obtenido en todo nuestro estudio. Como se puede apreciar el error dentro de la muestra permanece constante a 0 apreciándose además una disminución del error fuera de la muestra muy rápido conforme aumentamos el número de datos en el conjunto de entrenamiento.
+
 \subsubsection{SVM}
 
 El último modelo empleado ha sido SVM. Los parámetros del modelo han sido obtenidos a través de un GridSearch para obtener los mejores valores de gamma y C tal y como se indica en el PDF. En nuestro caso el mejor valor obtenido de gamma ha sido 0.01 y C 0.95 con el kernel RBF. Los resultados han sido:
